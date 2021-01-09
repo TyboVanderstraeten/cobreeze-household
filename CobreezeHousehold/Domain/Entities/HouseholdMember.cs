@@ -11,7 +11,7 @@ namespace Domain.Entities
         public DateTime DateOfBirth { get; set; }
         public string Nickname { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<HouseholdGroup> Households { get; set; }
+        public ICollection<HouseholdGroup> Households { get; }
 
         public HouseholdMember(string firstName, string lastName, DateTime dateOfBirth)
         {
