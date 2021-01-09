@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Domain.Entities
 {
-    public class HouseholdMember : EditableBaseEntity
+    public class User : EditableBaseEntity
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -13,7 +13,7 @@ namespace Domain.Entities
         public string PhoneNumber { get; set; }
         public ICollection<HouseholdGroup> Households { get; }
 
-        public HouseholdMember(string firstName, string lastName, DateTime dateOfBirth)
+        public User(string firstName, string lastName, DateTime dateOfBirth)
         {
             FirstName = firstName;
             LastName = lastName;

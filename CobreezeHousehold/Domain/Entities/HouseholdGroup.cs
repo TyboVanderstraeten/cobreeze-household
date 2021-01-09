@@ -7,23 +7,23 @@ namespace Domain.Entities
     public class HouseholdGroup : EditableBaseEntity
     {
         public string Name { get; set; }
-        public ICollection<HouseholdMember> Members { get; set; }
+        public ICollection<User> Members { get; set; }
         public ICollection<HouseholdTask> Tasks { get; set; }
         public BigInteger MyProperty { get; set; }
 
         public HouseholdGroup(string name)
         {
             Name = name;
-            Members = new List<HouseholdMember>();
+            Members = new List<User>();
             Tasks = new List<HouseholdTask>();
         }
 
-        public void AddMember(HouseholdMember member)
+        public void AddMember(User member)
         {
             Members.Add(member);
         }
 
-        public void RemoveMember(HouseholdMember member)
+        public void RemoveMember(User member)
         {
             Members.Remove(member);
         }

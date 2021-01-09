@@ -14,7 +14,7 @@ namespace Domain.Entities
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
         public int ExecutorId { get; set; }
-        public HouseholdMember Executor { get; set; }
+        public User Executor { get; set; }
 
         public HouseholdTask(TaskType taskType, string name)
         {
