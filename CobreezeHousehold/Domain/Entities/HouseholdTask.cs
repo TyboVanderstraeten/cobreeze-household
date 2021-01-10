@@ -4,7 +4,7 @@ using System;
 
 namespace Domain.Entities
 {
-    public abstract class HouseholdTask : EditableBaseEntity
+    public class HouseholdTask : EditableBaseEntity
     {
         public int HouseholdGroupId { get; set; }
         public HouseholdGroup Household { get; set; }

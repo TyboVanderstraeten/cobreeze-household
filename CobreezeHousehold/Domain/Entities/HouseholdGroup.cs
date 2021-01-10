@@ -1,21 +1,17 @@
 ﻿using Domain.Common;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Domain.Entities
 {
     public class HouseholdGroup : EditableBaseEntity
     {
         public string Name { get; set; }
-        public ICollection<User> Members { get; set; }
-        public ICollection<HouseholdTask> Tasks { get; set; }
-        public BigInteger MyProperty { get; set; }
+        public ICollection<User> Members { get;  } = new List<User>();
+        public ICollection<HouseholdTask> Tasks { get; } = new List<HouseholdTask>();
 
         public HouseholdGroup(string name)
         {
             Name = name;
-            Members = new List<User>();
-            Tasks = new List<HouseholdTask>();
         }
 
         public void AddMember(User member)

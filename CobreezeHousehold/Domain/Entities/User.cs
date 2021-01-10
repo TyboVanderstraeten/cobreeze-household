@@ -11,14 +11,13 @@ namespace Domain.Entities
         public DateTime DateOfBirth { get; set; }
         public string Nickname { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<HouseholdGroup> Households { get; }
+        public IReadOnlyCollection<HouseholdGroup> Households { get; } = new List<HouseholdGroup>();
 
         public User(string firstName, string lastName, DateTime dateOfBirth)
         {
             FirstName = firstName;
             LastName = lastName;
             DateOfBirth = dateOfBirth;
-            Households = new List<HouseholdGroup>();
         }
     }
 }
