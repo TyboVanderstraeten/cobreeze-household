@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
@@ -8,6 +9,6 @@ namespace Application.Interfaces
     {
         DbSet<User> Users { get; set; }
         DbSet<HouseholdGroup> Households { get; set; }
-        Task<int> SaveChanges();
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
