@@ -28,6 +28,8 @@ namespace Presentation.WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cobreeze", Version = "v1" });
             });
 
+            services.AddHealthChecks();
+
             services.AddApplicationLayer();
 
             services.AddPersistenceLayer(Configuration);
@@ -51,6 +53,7 @@ namespace Presentation.WebApi
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/health");
                 endpoints.MapControllers();
             });
         }
