@@ -1,6 +1,9 @@
 ﻿using Application.Features.UserFeatures.Commands;
 using Application.Features.UserFeatures.Queries;
+using Application.Wrappers;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Presentation.WebApi.Controllers.v1
@@ -15,7 +18,7 @@ namespace Presentation.WebApi.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllUsersQuery()));
+            return Ok(new Response<IEnumerable<User>>(await Mediator.Send(new GetAllUsersQuery())));
         }
 
         /// <summary>
