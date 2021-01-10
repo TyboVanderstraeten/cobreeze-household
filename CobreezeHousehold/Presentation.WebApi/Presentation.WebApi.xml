@@ -4,5 +4,40 @@
         <name>Presentation.WebApi</name>
     </assembly>
     <members>
+        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAll">
+            <summary>
+            Gets all Users.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetById(System.Int32)">
+            <summary>
+            Gets User Entity by Id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.UserController.Create(Application.Features.UserFeatures.Commands.CreateUserCommand)">
+            <summary>
+            Creates a New User.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.UserController.Update(System.Int32,Application.Features.UserFeatures.Commands.UpdateUserCommand)">
+            <summary>
+            Updates the User Entity based on Id.   
+            </summary>
+            <param name="id"></param>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.UserController.Delete(System.Int32)">
+            <summary>
+            Deletes User Entity based on Id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>
