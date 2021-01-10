@@ -18,7 +18,7 @@ namespace Presentation.WebApi.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(new Response<IEnumerable<User>>(await Mediator.Send(new GetAllUsersQuery())));
+            return Ok(await Mediator.Send(new GetAllUsersQuery()));
         }
 
         /// <summary>
