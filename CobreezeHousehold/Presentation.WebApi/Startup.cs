@@ -18,7 +18,7 @@ namespace Presentation.WebApi
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services,IConfiguration configuration)
+        public void ConfigureServices(IServiceCollection services)
         {
 
             services.AddControllers();
@@ -30,7 +30,7 @@ namespace Presentation.WebApi
 
             services.AddApplicationLayer();
 
-            services.AddPersistenceLayer(configuration);
+            services.AddPersistenceLayer(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
