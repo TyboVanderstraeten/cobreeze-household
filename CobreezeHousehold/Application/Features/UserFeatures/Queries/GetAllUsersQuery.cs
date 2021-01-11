@@ -1,5 +1,5 @@
 ﻿using Application.Exceptions;
-using Application.Interfaces;
+using Application.Interfaces.Repositories;
 using Application.Wrappers;
 using Domain.Entities;
 using MediatR;
@@ -16,9 +16,9 @@ namespace Application.Features.UserFeatures.Queries
 
         public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PagedResponse<IEnumerable<User>>>
         {
-            private readonly IGenericRepositoryAsync<User> _userRepository;
+            private readonly IUserRepositoryAsync _userRepository;
 
-            public GetAllUsersQueryHandler(IGenericRepositoryAsync<User> userRepository)
+            public GetAllUsersQueryHandler(IUserRepositoryAsync userRepository)
             {
                 _userRepository = userRepository;
             }
