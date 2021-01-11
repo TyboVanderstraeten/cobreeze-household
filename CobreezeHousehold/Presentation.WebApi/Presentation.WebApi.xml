@@ -4,7 +4,7 @@
         <name>Presentation.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAll">
+        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAll(Application.Filters.PaginationFilter)">
             <summary>
             Gets all Users.
             </summary>
@@ -37,6 +37,12 @@
             Deletes User Entity based on Id.
             </summary>
             <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAllHouseholdsByUserId(System.Int32)">
+            <summary>
+            Gets all Households by User Id.
+            </summary>
             <returns></returns>
         </member>
     </members>
