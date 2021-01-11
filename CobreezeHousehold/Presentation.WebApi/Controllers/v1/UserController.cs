@@ -73,10 +73,10 @@ namespace Presentation.WebApi.Controllers.v1
         /// Gets all Households by User Id.
         /// </summary>
         /// <returns></returns>
-        [HttpGet("{id}/households")]
-        public async Task<IActionResult> GetAllHouseholdsByUserId(int id)
+        [HttpGet("{id}/Households")]
+        public async Task<IActionResult> GetAllHouseholdsByUserId(int id, [FromQuery] PaginationFilter paginationFilter)
         {
-            return Ok(await Mediator.Send(new GetAllHouseholdsByUserIdQuery() { Id = id }));
+            return Ok(await Mediator.Send(new GetAllHouseholdsByUserIdQuery() { Id = id, PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
         }
     }
 }

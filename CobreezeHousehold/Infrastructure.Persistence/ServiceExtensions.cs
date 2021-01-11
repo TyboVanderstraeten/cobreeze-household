@@ -21,6 +21,7 @@ namespace Infrastructure.Persistence
 
             services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             services.AddTransient<IUserRepositoryAsync, UserRepositoryAsync>();
+            services.AddTransient<IHouseholdGroupRepositoryAsync, HouseholdGroupRepositoryAsync>();
         }
     }
 }

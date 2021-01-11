@@ -2,9 +2,8 @@
 
 namespace Domain.Common
 {
-    public abstract class EditableBaseEntity
+    public abstract class EditableBaseEntity : BaseEntity
     {
-        public int Id { get; set; }
         public string CreatedBy { get; set; }
         public DateTime Created { get; set; }
         public string LastModifiedBy { get; set; }

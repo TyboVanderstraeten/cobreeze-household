@@ -8,7 +8,7 @@ namespace Infrastructure.Persistence.Contexts
     public class ApplicationDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
-        public DbSet<HouseholdGroup> Households { get; set; }
+        public DbSet<HouseholdGroup> HouseholdGroups { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {

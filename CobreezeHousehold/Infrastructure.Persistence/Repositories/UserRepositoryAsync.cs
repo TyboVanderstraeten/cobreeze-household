@@ -20,7 +20,9 @@ namespace Infrastructure.Persistence.Repositories
         public async Task<IReadOnlyList<HouseholdGroup>> GetAllHouseholdsByUserIdAsync(int id, CancellationToken cancellationToken = default)
         {
             User user = await _users
-                        .FindAsync(new object[] { id }, cancellationToken);
+                                        .AsNoTracking()
+                        .Include(u => u.Households)
+                        .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
             return (IReadOnlyList<HouseholdGroup>)user?.Households;
         }

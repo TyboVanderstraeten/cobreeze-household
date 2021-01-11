@@ -39,4 +39,3 @@ namespace Application.Features.UserFeatures.Queries
         }
     }
 }
-A

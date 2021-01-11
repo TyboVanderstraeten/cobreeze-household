@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Common;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Interfaces
 {
-    public interface IGenericRepositoryAsync<T> where T : class
+    public interface IGenericRepositoryAsync<T> where T : BaseEntity
     {
         Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default);
         Task<IReadOnlyList<T>> GetPagedResponseAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default);

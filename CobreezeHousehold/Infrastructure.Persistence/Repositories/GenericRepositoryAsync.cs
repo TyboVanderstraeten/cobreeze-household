@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Domain.Common;
 using Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Repositories
 {
-    public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : class
+    public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -29,9 +30,9 @@ namespace Infrastructure.Persistence.Repositories
         {
             return await _dbContext
                         .Set<T>()
+                                                .AsNoTracking()
                         .Skip((pageNumber - 1) * pageSize)
                         .Take(pageSize)
-                        .AsNoTracking()
                         .ToListAsync(cancellationToken);
         }
 
@@ -39,7 +40,7 @@ namespace Infrastructure.Persistence.Repositories
         {
             return await _dbContext
                         .Set<T>()
-                        .FindAsync(new object[] { id }, cancellationToken);
+                        .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
         }
 
         public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)

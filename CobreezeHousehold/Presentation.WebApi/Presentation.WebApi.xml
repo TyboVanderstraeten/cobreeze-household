@@ -39,7 +39,7 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAllHouseholdsByUserId(System.Int32)">
+        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAllHouseholdsByUserId(System.Int32,Application.Filters.PaginationFilter)">
             <summary>
             Gets all Households by User Id.
             </summary>
