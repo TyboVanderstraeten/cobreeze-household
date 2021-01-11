@@ -1,35 +1,36 @@
-﻿using Application.Interfaces;
+﻿using Application.Exceptions;
+using Application.Interfaces;
+using Application.Wrappers;
 using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Queries
 {
-    public class GetUserByIdQuery : IRequest<User>
+    public class GetUserByIdQuery : IRequest<Response<User>>
     {
         public int Id { get; set; }
 
-        public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, User>
+        public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, Response<User>>
         {
-            private readonly IApplicationDbContext _context;
+            private readonly IGenericRepositoryAsync<User> _userRepository;
 
-            public GetUserByIdQueryHandler(IApplicationDbContext context)
+            public GetUserByIdQueryHandler(IGenericRepositoryAsync<User> userRepository)
             {
-                _context = context;
+                _userRepository = userRepository;
             }
 
-            public async Task<User> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
+            public async Task<Response<User>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
             {
-                User user = await _context.Users.SingleOrDefaultAsync(u => u.Id == query.Id, cancellationToken);
+                User user = await _userRepository.GetByIdAsync(query.Id);
 
                 if (user == null)
                 {
-                    return null;
+                    throw new ApiException("User Not Found.");
                 }
 
-                return user;
+                return new Response<User>(user);
             }
         }
     }

@@ -1,34 +1,38 @@
-﻿using Application.Interfaces;
+﻿using Application.Exceptions;
+using Application.Interfaces;
+using Application.Wrappers;
 using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Queries
 {
-    public class GetAllUsersQuery : IRequest<IEnumerable<User>>
+    public class GetAllUsersQuery : IRequest<PagedResponse<IEnumerable<User>>>
     {
-        public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, IEnumerable<User>>
-        {
-            private readonly IApplicationDbContext _context;
+        public int PageNumber { get; set; }
+        public int PageSize { get; set; }
 
-            public GetAllUsersQueryHandler(IApplicationDbContext context)
+        public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PagedResponse<IEnumerable<User>>>
+        {
+            private readonly IGenericRepositoryAsync<User> _userRepository;
+
+            public GetAllUsersQueryHandler(IGenericRepositoryAsync<User> userRepository)
             {
-                _context = context;
+                _userRepository = userRepository;
             }
 
-            public async Task<IEnumerable<User>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
+            public async Task<PagedResponse<IEnumerable<User>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
             {
-                List<User> userList = await _context.Users.ToListAsync(cancellationToken);
+                IReadOnlyList<User> userList = await _userRepository.GetPagedResponseAsync(query.PageNumber, query.PageSize);
 
                 if (userList == null)
                 {
-                    return null;
+                    throw new ApiException("Users Not Found.");
                 }
 
-                return userList.AsReadOnly();
+                return new PagedResponse<IEnumerable<User>>(userList, query.PageNumber, query.PageSize);
             }
         }
     }
