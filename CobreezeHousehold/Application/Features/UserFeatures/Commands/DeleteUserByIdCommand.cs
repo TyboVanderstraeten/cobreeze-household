@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Commands
 {
-    public class DeleteUserByIdCommand : IRequest<Response<int>>
+    public class DeleteUserByIdCommand : IRequest<Response<User>>
     {
         public int Id { get; set; }
 
-        public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, Response<int>>
+        public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, Response<User>>
         {
             private readonly IUserRepositoryAsync _userRepository;
 
@@ -21,7 +21,7 @@ namespace Application.Features.UserFeatures.Commands
                 _userRepository = userRepository;
             }
 
-            public async Task<Response<int>> Handle(DeleteUserByIdCommand command, CancellationToken cancellationToken)
+            public async Task<Response<User>> Handle(DeleteUserByIdCommand command, CancellationToken cancellationToken)
             {
                 User user = await _userRepository.GetByIdAsync(command.Id, cancellationToken);
 
@@ -32,7 +32,7 @@ namespace Application.Features.UserFeatures.Commands
 
                 await _userRepository.DeleteAsync(user, cancellationToken);
 
-                return new Response<int>(user.Id);
+                return new Response<User>(user);
             }
         }
     }

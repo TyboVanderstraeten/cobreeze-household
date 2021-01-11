@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Commands
 {
-    public class CreateUserCommand : IRequest<Response<int>>
+    public class CreateUserCommand : IRequest<Response<User>>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,7 +16,7 @@ namespace Application.Features.UserFeatures.Commands
         public string Nickname { get; set; }
         public string PhoneNumber { get; set; }
 
-        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Response<int>>
+        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Response<User>>
         {
             private readonly IUserRepositoryAsync _userRepository;
 
@@ -25,7 +25,7 @@ namespace Application.Features.UserFeatures.Commands
                 _userRepository = userRepository;
             }
 
-            public async Task<Response<int>> Handle(CreateUserCommand command, CancellationToken cancellationToken)
+            public async Task<Response<User>> Handle(CreateUserCommand command, CancellationToken cancellationToken)
             {
                 User user = new User(command.FirstName, command.LastName, command.DateOfBirth);
                 user.Nickname = command.Nickname;
@@ -33,7 +33,7 @@ namespace Application.Features.UserFeatures.Commands
 
                 await _userRepository.AddAsync(user, cancellationToken);
 
-                return new Response<int>(user.Id);
+                return new Response<User>(user);
             }
         }
     }

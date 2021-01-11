@@ -1,9 +1,7 @@
 ﻿using Application.Features.UserFeatures.Commands;
 using Application.Features.UserFeatures.Queries;
-using Application.Wrappers;
-using Domain.Entities;
+using Application.Filters;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Presentation.WebApi.Controllers.v1
@@ -16,9 +14,9 @@ namespace Presentation.WebApi.Controllers.v1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter)
         {
-            return Ok(await Mediator.Send(new GetAllUsersQuery()));
+            return Ok(await Mediator.Send(new GetAllUsersQuery() { PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
         }
 
         /// <summary>
@@ -69,6 +67,16 @@ namespace Presentation.WebApi.Controllers.v1
         public async Task<IActionResult> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteUserByIdCommand { Id = id }));
+        }
+
+        /// <summary>
+        /// Gets all Households by User Id.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{id}/households")]
+        public async Task<IActionResult> GetAllHouseholdsByUserId(int id)
+        {
+            return Ok(await Mediator.Send(new GetAllHouseholdsByUserIdQuery() { Id = id }));
         }
     }
 }

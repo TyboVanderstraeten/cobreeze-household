@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Commands
 {
-    public class UpdateUserCommand : IRequest<Response<int>>
+    public class UpdateUserCommand : IRequest<Response<User>>
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -18,7 +18,7 @@ namespace Application.Features.UserFeatures.Commands
         public string Nickname { get; set; }
         public string PhoneNumber { get; set; }
 
-        public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Response<int>>
+        public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Response<User>>
         {
             private readonly IUserRepositoryAsync _userRepository;
 
@@ -27,7 +27,7 @@ namespace Application.Features.UserFeatures.Commands
                 _userRepository = userRepository;
             }
 
-            public async Task<Response<int>> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
+            public async Task<Response<User>> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
             {
                 User user = await _userRepository.GetByIdAsync(command.Id, cancellationToken);
 
@@ -44,7 +44,7 @@ namespace Application.Features.UserFeatures.Commands
 
                 await _userRepository.UpdateAsync(user, cancellationToken);
 
-                return new Response<int>(user.Id);
+                return new Response<User>(user);
             }
         }
     }
