@@ -23,6 +23,12 @@ namespace Presentation.WebApi
         {
             services.AddControllers();
 
+            services.AddRouting(options =>
+            {
+                options.LowercaseUrls = true;
+                options.LowercaseQueryStrings = true;
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cobreeze", Version = "v1" });
