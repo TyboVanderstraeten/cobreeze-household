@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.WebApi.Controllers.v1
 {
-    [ApiVersion("2.0")]
+    [ApiVersion("1.0")]
     public class HouseholdController : BaseApiController
     {
         /// <summary>
