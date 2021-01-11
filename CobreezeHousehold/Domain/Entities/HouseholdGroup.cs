@@ -8,30 +8,11 @@ namespace Domain.Entities
         public string Name { get; set; }
         public ICollection<User> Members { get;  } = new List<User>();
         public ICollection<HouseholdTask> Tasks { get; } = new List<HouseholdTask>();
+        public ICollection<ShoppingList> ShoppingsLists { get; } = new List<ShoppingList>();
 
         public HouseholdGroup(string name)
         {
             Name = name;
-        }
-
-        public void AddMember(User member)
-        {
-            Members.Add(member);
-        }
-
-        public void RemoveMember(User member)
-        {
-            Members.Remove(member);
-        }
-
-        public void AddTask(HouseholdTask task)
-        {
-            Tasks.Add(task);
-        }
-
-        public void RemoveTask(HouseholdTask task)
-        {
-            Tasks.Remove(task);
         }
     }
 }
