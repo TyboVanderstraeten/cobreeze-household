@@ -2,19 +2,19 @@
 {
     public class PaginationFilter
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
+        private int _pageNumber = 1;
+        private int _pageSize = 10;
 
-        public PaginationFilter()
+        public int PageNumber
         {
-            PageNumber = 1;
-            PageSize = 10;
+            get { return _pageNumber; }
+            set { _pageNumber = value < 1 ? 1 : value; ; }
         }
 
-        public PaginationFilter(int pageNumber, int pageSize)
+        public int PageSize
         {
-            PageNumber = pageNumber < 1 ? 1 : pageNumber;
-            PageSize = pageSize > 50 ? 50 : pageSize;
+            get { return _pageSize; }
+            set { _pageSize = value < 1 ? 10 : value > 50 ? 50 : value; ; }
         }
     }
 }
