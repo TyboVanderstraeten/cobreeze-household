@@ -25,9 +25,9 @@ namespace Application.Features.UserFeatures.Queries
                 _userRepository = userRepository;
             }
 
-            public async Task<PagedResponse<IEnumerable<HouseholdGroup>>> Handle(GetAllHouseholdsByUserIdQuery query, CancellationToken cancellation)
+            public async Task<PagedResponse<IEnumerable<HouseholdGroup>>> Handle(GetAllHouseholdsByUserIdQuery query, CancellationToken cancellationToken)
             {
-                IEnumerable<HouseholdGroup> households = await _userRepository.GetAllHouseholdsByUserIdAsync(query.Id);
+                IEnumerable<HouseholdGroup> households = await _userRepository.GetAllHouseholdsByUserIdAsync(query.Id,cancellationToken);
 
                 if (households == null)
                 {
