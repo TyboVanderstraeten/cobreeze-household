@@ -22,7 +22,7 @@ namespace Infrastructure.Persistence.Repositories
         {
             return await _dbContext
                         .Set<T>()
-                        .AsNoTracking()
+                        
                         .ToListAsync(cancellationToken);
         }
 
@@ -30,7 +30,7 @@ namespace Infrastructure.Persistence.Repositories
         {
             return await _dbContext
                         .Set<T>()
-                                                .AsNoTracking()
+                                                
                         .Skip((pageNumber - 1) * pageSize)
                         .Take(pageSize)
                         .ToListAsync(cancellationToken);

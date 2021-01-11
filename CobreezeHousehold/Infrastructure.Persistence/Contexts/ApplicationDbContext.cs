@@ -12,7 +12,7 @@ namespace Infrastructure.Persistence.Contexts
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-
+            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
