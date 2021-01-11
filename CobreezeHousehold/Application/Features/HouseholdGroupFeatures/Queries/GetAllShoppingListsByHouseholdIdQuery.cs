@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Features.UserFeatures.Queries
+namespace Application.Features.HouseholdGroupFeatures.Queries
 {
     public class GetAllShoppingListsByHouseholdIdQuery : IRequest<PagedResponse<IEnumerable<ShoppingList>>>
     {
@@ -27,14 +27,14 @@ namespace Application.Features.UserFeatures.Queries
 
             public async Task<PagedResponse<IEnumerable<ShoppingList>>> Handle(GetAllShoppingListsByHouseholdIdQuery query, CancellationToken cancellationToken)
             {
-                IEnumerable<ShoppingList> shoppingLists = await _householdGroupRepositoryAsync.GetAllShoppingListsByHouseholdIdAsync(query.Id, cancellationToken);
+                IReadOnlyList<ShoppingList> shoppingLists = await _householdGroupRepositoryAsync.GetAllShoppingListsByHouseholdIdAsync(query.Id, cancellationToken);
 
                 if (shoppingLists == null)
                 {
                     throw new ApiException("Shopping Lists Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<ShoppingList>>(shoppingLists, query.PageNumber, query.PageSize);
+                return new PagedResponse<IEnumerable<ShoppingList>>(shoppingLists, query.PageNumber, query.PageSize,shoppingLists.Count);
             }
         }
     }

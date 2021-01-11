@@ -25,14 +25,14 @@ namespace Application.Features.HouseholdGroupFeatures.Queries
 
             public async Task<PagedResponse<IEnumerable<HouseholdGroup>>> Handle(GetAllHouseholdsQuery query, CancellationToken cancellationToken)
             {
-                IReadOnlyList<HouseholdGroup> householdGroupList = await _householdGroupRepositoryAsync.GetPagedResponseAsync(query.PageNumber, query.PageSize, cancellationToken);
+                IReadOnlyList<HouseholdGroup> households = await _householdGroupRepositoryAsync.GetPagedResponseAsync(query.PageNumber, query.PageSize, cancellationToken);
 
-                if (householdGroupList == null)
+                if (households == null)
                 {
                     throw new ApiException("Households Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<HouseholdGroup>>(householdGroupList, query.PageNumber, query.PageSize);
+                return new PagedResponse<IEnumerable<HouseholdGroup>>(households, query.PageNumber, query.PageSize, households.Count);
             }
         }
     }

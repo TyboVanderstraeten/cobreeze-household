@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Features.UserFeatures.Queries
+namespace Application.Features.HouseholdGroupFeatures.Queries
 {
     public class GetAllTasksByHouseholdIdQuery : IRequest<PagedResponse<IEnumerable<HouseholdTask>>>
     {
@@ -27,14 +27,14 @@ namespace Application.Features.UserFeatures.Queries
 
             public async Task<PagedResponse<IEnumerable<HouseholdTask>>> Handle(GetAllTasksByHouseholdIdQuery query, CancellationToken cancellationToken)
             {
-                IEnumerable<HouseholdTask> householdTasks = await _householdGroupRepositoryAsync.GetAllTasksByHouseholdIdAsync(query.Id, cancellationToken);
+                IReadOnlyList<HouseholdTask> tasks = await _householdGroupRepositoryAsync.GetAllTasksByHouseholdIdAsync(query.Id, cancellationToken);
 
-                if (householdTasks == null)
+                if (tasks == null)
                 {
                     throw new ApiException("Tasks Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<HouseholdTask>>(householdTasks, query.PageNumber, query.PageSize);
+                return new PagedResponse<IEnumerable<HouseholdTask>>(tasks, query.PageNumber, query.PageSize, tasks.Count);
             }
         }
     }

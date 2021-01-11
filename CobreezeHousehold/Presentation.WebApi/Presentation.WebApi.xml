@@ -4,6 +4,37 @@
         <name>Presentation.WebApi</name>
     </assembly>
     <members>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAll(Application.Filters.PaginationFilter)">
+            <summary>
+            Gets all Households.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetById(System.Int32)">
+            <summary>
+            Gets Household Entity by Id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllUsersByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
+            <summary>
+            Gets all Users by Household Id.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllTasksByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
+            <summary>
+            Gets all Tasks by Household Id.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllShoppingListsByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
+            <summary>
+            Gets all Shopping Lists by Household Id.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAll(Application.Filters.PaginationFilter)">
             <summary>
             Gets all Users.

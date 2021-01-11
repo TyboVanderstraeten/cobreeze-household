@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Features.UserFeatures.Queries
+namespace Application.Features.HouseholdGroupFeatures.Queries
 {
     public class GetAllUsersByHouseholdIdQuery : IRequest<PagedResponse<IEnumerable<User>>>
     {
@@ -27,14 +27,14 @@ namespace Application.Features.UserFeatures.Queries
 
             public async Task<PagedResponse<IEnumerable<User>>> Handle(GetAllUsersByHouseholdIdQuery query, CancellationToken cancellationToken)
             {
-                IEnumerable<User> users = await _householdGroupRepositoryAsync.GetAllUsersByHouseholdIdAsync(query.Id, cancellationToken);
+                IReadOnlyList<User> users = await _householdGroupRepositoryAsync.GetAllUsersByHouseholdIdAsync(query.Id, cancellationToken);
 
                 if (users == null)
                 {
                     throw new ApiException("Users Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<User>>(users, query.PageNumber, query.PageSize);
+                return new PagedResponse<IEnumerable<User>>(users, query.PageNumber, query.PageSize, users.Count);
             }
         }
     }

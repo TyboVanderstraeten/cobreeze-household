@@ -6,7 +6,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Application.Features.HouseholdFeatures.Queries
+namespace Application.Features.HouseholdGroupFeatures.Queries
 {
     public class GetHouseholdByIdQuery : IRequest<Response<HouseholdGroup>>
     {
