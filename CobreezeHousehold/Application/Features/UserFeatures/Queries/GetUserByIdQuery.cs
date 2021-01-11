@@ -23,7 +23,7 @@ namespace Application.Features.UserFeatures.Queries
 
             public async Task<Response<User>> Handle(GetUserByIdQuery query, CancellationToken cancellationToken)
             {
-                User user = await _userRepository.GetByIdAsync(query.Id);
+                User user = await _userRepository.GetByIdAsync(query.Id, cancellationToken);
 
                 if (user == null)
                 {

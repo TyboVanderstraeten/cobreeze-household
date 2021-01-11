@@ -1,14 +1,15 @@
-﻿using Application.Interfaces;
+﻿using Application.Exceptions;
+using Application.Interfaces;
+using Application.Wrappers;
 using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Commands
 {
-    public class UpdateUserCommand : IRequest<int>
+    public class UpdateUserCommand : IRequest<Response<int>>
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -17,22 +18,22 @@ namespace Application.Features.UserFeatures.Commands
         public string Nickname { get; set; }
         public string PhoneNumber { get; set; }
 
-        public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, int>
+        public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, Response<int>>
         {
-            private readonly IApplicationDbContext _context;
+            private readonly IGenericRepositoryAsync<User> _userRepository;
 
-            public UpdateUserCommandHandler(IApplicationDbContext context)
+            public UpdateUserCommandHandler(IGenericRepositoryAsync<User> userRepository)
             {
-                _context = context;
+                _userRepository = userRepository;
             }
 
-            public async Task<int> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
+            public async Task<Response<int>> Handle(UpdateUserCommand command, CancellationToken cancellationToken)
             {
-                User user = await _context.Users.SingleOrDefaultAsync(u => u.Id == command.Id, cancellationToken);
+                User user = await _userRepository.GetByIdAsync(command.Id, cancellationToken);
 
                 if (user == null)
                 {
-                    return default;
+                    throw new ApiException("User Not Found.");
                 }
 
                 user.FirstName = command.FirstName;
@@ -41,10 +42,9 @@ namespace Application.Features.UserFeatures.Commands
                 user.Nickname = command.Nickname;
                 user.PhoneNumber = command.PhoneNumber;
 
-                _context.Users.Update(user);
-                await _context.SaveChangesAsync(cancellationToken);
+                await _userRepository.UpdateAsync(user, cancellationToken);
 
-                return user.Id;
+                return new Response<int>(user.Id);
             }
         }
     }

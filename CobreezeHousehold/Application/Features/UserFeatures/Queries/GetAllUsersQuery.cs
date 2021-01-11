@@ -25,7 +25,7 @@ namespace Application.Features.UserFeatures.Queries
 
             public async Task<PagedResponse<IEnumerable<User>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
             {
-                IReadOnlyList<User> userList = await _userRepository.GetPagedResponseAsync(query.PageNumber, query.PageSize);
+                IReadOnlyList<User> userList = await _userRepository.GetPagedResponseAsync(query.PageNumber, query.PageSize, cancellationToken);
 
                 if (userList == null)
                 {

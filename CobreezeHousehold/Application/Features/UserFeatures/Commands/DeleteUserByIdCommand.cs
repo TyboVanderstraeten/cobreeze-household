@@ -1,38 +1,38 @@
-﻿using Application.Interfaces;
+﻿using Application.Exceptions;
+using Application.Interfaces;
+using Application.Wrappers;
 using Domain.Entities;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Commands
 {
-    public class DeleteUserByIdCommand : IRequest<int>
+    public class DeleteUserByIdCommand : IRequest<Response<int>>
     {
         public int Id { get; set; }
 
-        public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, int>
+        public class DeleteUserByIdCommandHandler : IRequestHandler<DeleteUserByIdCommand, Response<int>>
         {
-            private readonly IApplicationDbContext _context;
+            private readonly IGenericRepositoryAsync<User> _userRepository;
 
-            public DeleteUserByIdCommandHandler(IApplicationDbContext context)
+            public DeleteUserByIdCommandHandler(IGenericRepositoryAsync<User> userRepository)
             {
-                _context = context;
+                _userRepository = userRepository;
             }
 
-            public async Task<int> Handle(DeleteUserByIdCommand command, CancellationToken cancellationToken)
+            public async Task<Response<int>> Handle(DeleteUserByIdCommand command, CancellationToken cancellationToken)
             {
-                User user = await _context.Users.SingleOrDefaultAsync(u => u.Id == command.Id, cancellationToken);
+                User user = await _userRepository.GetByIdAsync(command.Id, cancellationToken);
 
                 if (user == null)
                 {
-                    return default;
+                    throw new ApiException("User Not Found.");
                 }
 
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync(cancellationToken);
+                await _userRepository.DeleteAsync(user, cancellationToken);
 
-                return user.Id;
+                return new Response<int>(user.Id);
             }
         }
     }

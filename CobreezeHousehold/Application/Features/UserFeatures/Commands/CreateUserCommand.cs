@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Wrappers;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Commands
 {
-    public class CreateUserCommand : IRequest<int>
+    public class CreateUserCommand : IRequest<Response<int>>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -15,25 +16,24 @@ namespace Application.Features.UserFeatures.Commands
         public string Nickname { get; set; }
         public string PhoneNumber { get; set; }
 
-        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, int>
+        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Response<int>>
         {
-            private readonly IApplicationDbContext _context;
+            private readonly IGenericRepositoryAsync<User> _userRepository;
 
-            public CreateUserCommandHandler(IApplicationDbContext context)
+            public CreateUserCommandHandler(IGenericRepositoryAsync<User> userRepository)
             {
-                _context = context;
+                _userRepository = userRepository;
             }
 
-            public async Task<int> Handle(CreateUserCommand command, CancellationToken cancellationToken)
+            public async Task<Response<int>> Handle(CreateUserCommand command, CancellationToken cancellationToken)
             {
                 User user = new User(command.FirstName, command.LastName, command.DateOfBirth);
                 user.Nickname = command.Nickname;
                 user.PhoneNumber = command.PhoneNumber;
 
-                _context.Users.Add(user);
-                await _context.SaveChangesAsync(cancellationToken);
+                await _userRepository.AddAsync(user, cancellationToken);
 
-                return user.Id;
+                return new Response<int>(user.Id);
             }
         }
     }
