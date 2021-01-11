@@ -39,7 +39,7 @@ namespace Infrastructure.Persistence.Repositories
         {
             return await _dbContext
                         .Set<T>()
-                        .FindAsync(id, cancellationToken);
+                        .FindAsync(new object[] { id }, cancellationToken);
         }
 
         public async Task<T> AddAsync(T entity, CancellationToken cancellationToken = default)
