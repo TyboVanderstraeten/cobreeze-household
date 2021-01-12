@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Commands
 {
-    public class DeleteHouseholdCommand : IRequest<Response<HouseholdGroup>>
+    public class DeleteHouseholdByIdCommand : IRequest<Response<HouseholdGroup>>
     {
         public int Id { get; set; }
 
-        public class DeleteHouseholdCommandHandler : IRequestHandler<DeleteHouseholdCommand, Response<HouseholdGroup>>
+        public class DeleteHouseholdByIdCommandHandler : IRequestHandler<DeleteHouseholdByIdCommand, Response<HouseholdGroup>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
 
-            public DeleteHouseholdCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync)
+            public DeleteHouseholdByIdCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync)
             {
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
             }
 
-            public async Task<Response<HouseholdGroup>> Handle(DeleteHouseholdCommand command, CancellationToken cancellationToken)
+            public async Task<Response<HouseholdGroup>> Handle(DeleteHouseholdByIdCommand command, CancellationToken cancellationToken)
             {
                 HouseholdGroup household = await _householdGroupRepositoryAsync.GetByIdAsync(command.Id, cancellationToken);
 

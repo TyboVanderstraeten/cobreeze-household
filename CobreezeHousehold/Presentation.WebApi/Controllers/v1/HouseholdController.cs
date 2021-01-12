@@ -1,4 +1,5 @@
-﻿using Application.Features.HouseholdGroupFeatures.Queries;
+﻿using Application.Features.HouseholdGroupFeatures.Commands;
+using Application.Features.HouseholdGroupFeatures.Queries;
 using Application.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -27,6 +28,45 @@ namespace Presentation.WebApi.Controllers.v1
         public async Task<IActionResult> GetById(int id)
         {
             return Ok(await Mediator.Send(new GetHouseholdByIdQuery { Id = id }));
+        }
+
+        /// <summary>
+        /// Creates a New Household.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IActionResult> Create(CreateHouseholdCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Updates the Household Entity based on Id.   
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("[action]")]
+        public async Task<IActionResult> Update(int id, UpdateHouseholdCommand command)
+        {
+            if (id != command.Id)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Deletes Household Entity based on Id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            return Ok(await Mediator.Send(new DeleteHouseholdByIdCommand { Id = id }));
         }
 
         /// <summary>

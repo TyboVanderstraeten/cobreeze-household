@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\HouseholdGroupFeatures\Commands\" />
     <Folder Include="Features\UserFeatures\Commands\" />
   </ItemGroup>
 
