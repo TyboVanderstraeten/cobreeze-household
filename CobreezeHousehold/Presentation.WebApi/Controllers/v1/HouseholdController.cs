@@ -72,6 +72,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <summary>
         /// Gets all Users by Household Id.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Users")]
         public async Task<IActionResult> GetAllUsersByHouseholdId(int id, [FromQuery] PaginationFilter paginationFilter)
@@ -82,6 +83,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <summary>
         /// Gets all Tasks by Household Id.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Tasks")]
         public async Task<IActionResult> GetAllTasksByHouseholdId(int id, [FromQuery] PaginationFilter paginationFilter)
@@ -92,6 +94,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <summary>
         /// Gets all Shopping Lists by Household Id.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Shopping-Lists")]
         public async Task<IActionResult> GetAllShoppingListsByHouseholdId(int id, [FromQuery] PaginationFilter paginationFilter)

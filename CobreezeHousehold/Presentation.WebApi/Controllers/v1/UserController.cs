@@ -72,6 +72,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <summary>
         /// Gets all Households by User Id.
         /// </summary>
+        /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Households")]
         public async Task<IActionResult> GetAllHouseholdsByUserId(int id, [FromQuery] PaginationFilter paginationFilter)

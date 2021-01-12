@@ -43,18 +43,21 @@
             <summary>
             Gets all Users by Household Id.
             </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllTasksByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
             <summary>
             Gets all Tasks by Household Id.
             </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllShoppingListsByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
             <summary>
             Gets all Shopping Lists by Household Id.
             </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAll(Application.Filters.PaginationFilter)">
@@ -96,6 +99,7 @@
             <summary>
             Gets all Households by User Id.
             </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
     </members>
