@@ -34,6 +34,10 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
 
                 User creator = await _userRepositoryAsync.GetByIdAsync(command.CreatorId, cancellationToken);
 
+                /*
+                 * TODO: user not found?
+                 */
+
                 household.Members.Add(creator);
 
                 await _householdGroupRepositoryAsync.UpdateAsync(household, cancellationToken);
