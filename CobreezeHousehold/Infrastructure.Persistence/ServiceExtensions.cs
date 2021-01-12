@@ -19,9 +19,9 @@ namespace Infrastructure.Persistence
                     builder => builder.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName));
             });
 
-            services.AddTransient(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
-            services.AddTransient<IUserRepositoryAsync, UserRepositoryAsync>();
-            services.AddTransient<IHouseholdGroupRepositoryAsync, HouseholdGroupRepositoryAsync>();
+            services.AddScoped(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
+            services.AddScoped<IUserRepositoryAsync, UserRepositoryAsync>();
+            services.AddScoped<IHouseholdGroupRepositoryAsync, HouseholdGroupRepositoryAsync>();
         }
     }
 }

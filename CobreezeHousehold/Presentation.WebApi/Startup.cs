@@ -1,5 +1,7 @@
 using Application;
+using Application.Interfaces;
 using Infrastructure.Persistence;
+using Infrastructure.Shared;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Presentation.WebApi.Services;
 using System.Linq;
 
 namespace Presentation.WebApi
@@ -49,6 +52,10 @@ namespace Presentation.WebApi
             services.AddApplicationLayer();
 
             services.AddPersistenceLayer(Configuration);
+
+            services.AddSharedLayer();
+
+            services.AddScoped<IAuthenticatedUserService, AuthenticatedUserService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

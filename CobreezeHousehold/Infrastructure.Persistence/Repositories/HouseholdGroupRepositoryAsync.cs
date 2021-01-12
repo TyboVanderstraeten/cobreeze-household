@@ -19,9 +19,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<IReadOnlyList<User>> GetAllUsersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            HouseholdGroup household = await _householdGroups
-                                                                            
-
+            HouseholdGroup household = await _householdGroups                                                                           
                                     .Include(hg => hg.Members)
                                     .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
@@ -30,9 +28,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<IReadOnlyList<HouseholdTask>> GetAllTasksByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            HouseholdGroup household = await _householdGroups
-                                        
-
+            HouseholdGroup household = await _householdGroups                                        
                                                     .Include(hg => hg.Tasks)
                                                 .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
@@ -41,8 +37,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<IReadOnlyList<ShoppingList>> GetAllShoppingListsByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            HouseholdGroup household = await _householdGroups
-                
+            HouseholdGroup household = await _householdGroups               
                                                     .Include(hg => hg.ShoppingsLists)
                                                 .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
