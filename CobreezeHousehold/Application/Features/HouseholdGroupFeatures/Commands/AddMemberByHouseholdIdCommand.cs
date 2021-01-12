@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Commands
 {
-    public class AddUserByHouseholdIdCommand : IRequest<Response<User>>
+    public class AddMemberByHouseholdIdCommand : IRequest<Response<User>>
     {
         public int Id { get; set; }
         public int UserId { get; set; }
 
-        public class AddUserByHouseholdIdCommandHandler : IRequestHandler<AddUserByHouseholdIdCommand, Response<User>>
+        public class AddUserByHouseholdIdCommandHandler : IRequestHandler<AddMemberByHouseholdIdCommand, Response<User>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
             private readonly IUserRepositoryAsync _userRepositoryAsync;
@@ -24,7 +24,7 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
                 _userRepositoryAsync = userRepositoryAsync;
             }
 
-            public async Task<Response<User>> Handle(AddUserByHouseholdIdCommand command, CancellationToken cancellationToken)
+            public async Task<Response<User>> Handle(AddMemberByHouseholdIdCommand command, CancellationToken cancellationToken)
             {
                 HouseholdGroup household = await _householdGroupRepositoryAsync.GetByIdAsync(command.Id, cancellationToken);
 

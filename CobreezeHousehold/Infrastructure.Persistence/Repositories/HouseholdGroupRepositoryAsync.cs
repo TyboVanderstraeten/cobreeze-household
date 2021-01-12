@@ -17,7 +17,7 @@ namespace Infrastructure.Persistence.Repositories
             _householdGroups = dbContext.Set<HouseholdGroup>();
         }
 
-        public async Task<User> AddUserByHouseholdIdAsync(int id, User user, CancellationToken cancellationToken = default)
+        public async Task<User> AddMemberByHouseholdIdAsync(int id, User user, CancellationToken cancellationToken = default)
         {
             HouseholdGroup household = await _householdGroups
                                    .SingleOrDefaultAsync(hg => hg.Id == id, cancellationToken);
@@ -27,7 +27,7 @@ namespace Infrastructure.Persistence.Repositories
             return user;
         }
 
-        public async Task<User> DeleteUserByHouseholdIdAsync(int id, User user, CancellationToken cancellationToken = default)
+        public async Task<User> DeleteMemberByHouseholdIdAsync(int id, User user, CancellationToken cancellationToken = default)
         {
             HouseholdGroup household = await _householdGroups
                                    .SingleOrDefaultAsync(hg => hg.Id == id, cancellationToken);

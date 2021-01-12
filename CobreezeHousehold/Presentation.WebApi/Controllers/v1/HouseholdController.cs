@@ -70,6 +70,28 @@ namespace Presentation.WebApi.Controllers.v1
         }
 
         /// <summary>
+        /// Creates a New HouseholdGroupUser.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("Member")]
+        public async Task<IActionResult> AddMember(AddMemberByHouseholdIdCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Deletes a HouseholdGroupUser.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpDelete("Member")]
+        public async Task<IActionResult> DeleteMember(DeleteMemberByHouseholdIdCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
         /// Gets all Users by Household Id.
         /// </summary>
         /// <param name="id"></param>

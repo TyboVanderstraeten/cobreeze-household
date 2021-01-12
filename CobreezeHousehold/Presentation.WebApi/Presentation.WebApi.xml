@@ -39,6 +39,20 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.AddMember(Application.Features.HouseholdGroupFeatures.Commands.AddMemberByHouseholdIdCommand)">
+            <summary>
+            Creates a New HouseholdGroupUser.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.DeleteMember(Application.Features.HouseholdGroupFeatures.Commands.DeleteMemberByHouseholdIdCommand)">
+            <summary>
+            Deletes a HouseholdGroupUser.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
         <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllUsersByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
             <summary>
             Gets all Users by Household Id.
