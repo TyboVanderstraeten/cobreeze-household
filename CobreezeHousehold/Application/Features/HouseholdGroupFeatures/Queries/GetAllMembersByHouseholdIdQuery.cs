@@ -9,25 +9,25 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Queries
 {
-    public class GetAllUsersByHouseholdIdQuery : IRequest<PagedResponse<IEnumerable<User>>>
+    public class GetAllMembersByHouseholdIdQuery : IRequest<PagedResponse<IEnumerable<User>>>
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
 
         public int Id { get; set; }
 
-        public class GetAllUsersByHouseholdIdQueryHandler : IRequestHandler<GetAllUsersByHouseholdIdQuery, PagedResponse<IEnumerable<User>>>
+        public class GetAllMembersByHouseholdIdQueryHandler : IRequestHandler<GetAllMembersByHouseholdIdQuery, PagedResponse<IEnumerable<User>>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
 
-            public GetAllUsersByHouseholdIdQueryHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync)
+            public GetAllMembersByHouseholdIdQueryHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync)
             {
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
             }
 
-            public async Task<PagedResponse<IEnumerable<User>>> Handle(GetAllUsersByHouseholdIdQuery query, CancellationToken cancellationToken)
+            public async Task<PagedResponse<IEnumerable<User>>> Handle(GetAllMembersByHouseholdIdQuery query, CancellationToken cancellationToken)
             {
-                IReadOnlyList<User> users = await _householdGroupRepositoryAsync.GetAllUsersByHouseholdIdAsync(query.Id, cancellationToken);
+                IReadOnlyList<User> users = await _householdGroupRepositoryAsync.GetAllMembersByHouseholdIdAsync(query.Id, cancellationToken);
 
                 if (users == null)
                 {

@@ -99,7 +99,7 @@ namespace Presentation.WebApi.Controllers.v1
         [HttpGet("{id}/Users")]
         public async Task<IActionResult> GetAllUsersByHouseholdId(int id, [FromQuery] PaginationFilter paginationFilter)
         {
-            return Ok(await Mediator.Send(new GetAllUsersByHouseholdIdQuery() { Id = id, PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
+            return Ok(await Mediator.Send(new GetAllMembersByHouseholdIdQuery() { Id = id, PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
         }
 
         /// <summary>
