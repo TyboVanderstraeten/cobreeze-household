@@ -1,4 +1,5 @@
-﻿using Application.Interfaces.Repositories;
+﻿using Application.Exceptions;
+using Application.Interfaces.Repositories;
 using Application.Wrappers;
 using Domain.Entities;
 using MediatR;
@@ -7,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Commands
 {
-    /*
-     * TODO: link creator to household? Is this the good way? Research
-     */
     public class CreateHouseholdCommand : IRequest<Response<HouseholdGroup>>
     {
-        public string Name { get; set; }
         public int CreatorId { get; set; }
+
+        public string Name { get; set; }
 
         public class CreateHouseholdCommandHandler : IRequestHandler<CreateHouseholdCommand, Response<HouseholdGroup>>
         {
@@ -28,19 +27,17 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
 
             public async Task<Response<HouseholdGroup>> Handle(CreateHouseholdCommand command, CancellationToken cancellationToken)
             {
-                HouseholdGroup household = new HouseholdGroup(command.Name);
-
-                await _householdGroupRepositoryAsync.AddAsync(household, cancellationToken);
-
                 User creator = await _userRepositoryAsync.GetByIdAsync(command.CreatorId, cancellationToken);
 
-                /*
-                 * TODO: user not found?
-                 */
+                if (creator == null)
+                {
+                    throw new ApiException("User Not Found.");
+                }
 
+                HouseholdGroup household = new HouseholdGroup(command.Name);
                 household.Members.Add(creator);
 
-                await _householdGroupRepositoryAsync.UpdateAsync(household, cancellationToken);
+                await _householdGroupRepositoryAsync.AddAsync(household, cancellationToken);
 
                 return new Response<HouseholdGroup>(household);
             }

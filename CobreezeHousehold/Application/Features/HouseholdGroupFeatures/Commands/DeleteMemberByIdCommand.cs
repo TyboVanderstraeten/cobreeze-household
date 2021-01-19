@@ -8,25 +8,26 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Commands
 {
-    public class DeleteMemberByHouseholdIdCommand : IRequest<Response<User>>
+    public class DeleteMemberByIdCommand : IRequest<Response<User>>
     {
-        public int Id { get; set; }
+        public int HouseholdId { get; set; }
+
         public int UserId { get; set; }
 
-        public class DeleteUserByHouseholdIdCommandHandler : IRequestHandler<DeleteMemberByHouseholdIdCommand, Response<User>>
+        public class DeleteMemberByIdCommandHandler : IRequestHandler<DeleteMemberByIdCommand, Response<User>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
             private readonly IUserRepositoryAsync _userRepositoryAsync;
 
-            public DeleteUserByHouseholdIdCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync, IUserRepositoryAsync userRepositoryAsync)
+            public DeleteMemberByIdCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync, IUserRepositoryAsync userRepositoryAsync)
             {
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
                 _userRepositoryAsync = userRepositoryAsync;
             }
 
-            public async Task<Response<User>> Handle(DeleteMemberByHouseholdIdCommand command, CancellationToken cancellationToken)
+            public async Task<Response<User>> Handle(DeleteMemberByIdCommand command, CancellationToken cancellationToken)
             {
-                HouseholdGroup household = await _householdGroupRepositoryAsync.GetByIdAsync(command.Id, cancellationToken);
+                HouseholdGroup household = await _householdGroupRepositoryAsync.GetByIdAsync(command.HouseholdId, cancellationToken);
 
                 if (household == null)
                 {
@@ -40,14 +41,7 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
                     throw new ApiException("User Not Found.");
                 }
 
-                foreach(var m in household.Tasks)
-                {
-                    var p = m.Created;
-                }
-                /*
-                 * TODO: does not work since members is not loaded thus 0 -> nothing to remove from..
-                 */
-                household.Members.Remove(user);
+                household.RemoveMember(user);
 
                 await _householdGroupRepositoryAsync.UpdateAsync(household, cancellationToken);
 

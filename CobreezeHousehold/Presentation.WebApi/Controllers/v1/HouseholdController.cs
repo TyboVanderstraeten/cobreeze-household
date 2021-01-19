@@ -75,7 +75,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Member")]
-        public async Task<IActionResult> AddMember(AddMemberByHouseholdIdCommand command)
+        public async Task<IActionResult> AddMember(AddMemberCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -86,7 +86,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete("Member")]
-        public async Task<IActionResult> DeleteMember(DeleteMemberByHouseholdIdCommand command)
+        public async Task<IActionResult> DeleteMember(DeleteMemberByIdCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

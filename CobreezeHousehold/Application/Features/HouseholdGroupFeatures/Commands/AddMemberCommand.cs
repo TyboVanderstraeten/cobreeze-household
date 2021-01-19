@@ -8,25 +8,26 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Commands
 {
-    public class AddMemberByHouseholdIdCommand : IRequest<Response<User>>
+    public class AddMemberCommand : IRequest<Response<User>>
     {
-        public int Id { get; set; }
+        public int HouseholdId { get; set; }
+
         public int UserId { get; set; }
 
-        public class AddUserByHouseholdIdCommandHandler : IRequestHandler<AddMemberByHouseholdIdCommand, Response<User>>
+        public class AddMemberCommandHandler : IRequestHandler<AddMemberCommand, Response<User>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
             private readonly IUserRepositoryAsync _userRepositoryAsync;
 
-            public AddUserByHouseholdIdCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync, IUserRepositoryAsync userRepositoryAsync)
+            public AddMemberCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync, IUserRepositoryAsync userRepositoryAsync)
             {
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
                 _userRepositoryAsync = userRepositoryAsync;
             }
 
-            public async Task<Response<User>> Handle(AddMemberByHouseholdIdCommand command, CancellationToken cancellationToken)
+            public async Task<Response<User>> Handle(AddMemberCommand command, CancellationToken cancellationToken)
             {
-                HouseholdGroup household = await _householdGroupRepositoryAsync.GetByIdAsync(command.Id, cancellationToken);
+                HouseholdGroup household = await _householdGroupRepositoryAsync.GetByIdAsync(command.HouseholdId, cancellationToken);
 
                 if (household == null)
                 {
