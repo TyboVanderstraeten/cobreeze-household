@@ -17,76 +17,6 @@ namespace Infrastructure.Persistence.Repositories
             _householdGroups = dbContext.Set<HouseholdGroup>();
         }
 
-        public async Task<User> AddMemberByHouseholdIdAsync(int id, User user, CancellationToken cancellationToken = default)
-        {
-            HouseholdGroup household = await _householdGroups
-                                   .SingleOrDefaultAsync(hg => hg.Id == id, cancellationToken);
-
-            household.Members.Add(user);
-
-            return user;
-        }
-
-        public async Task<User> DeleteMemberByHouseholdIdAsync(int id, User user, CancellationToken cancellationToken = default)
-        {
-            HouseholdGroup household = await _householdGroups
-                                   .SingleOrDefaultAsync(hg => hg.Id == id, cancellationToken);
-
-            household.Members.Remove(user);
-
-            return user;
-        }
-
-        public async Task<HouseholdTask> AddTaskByHouseholdIdAsync(int id, HouseholdTask task, CancellationToken cancellationToken = default)
-        {
-            HouseholdGroup household = await _householdGroups
-                                    .SingleOrDefaultAsync(hg => hg.Id == id, cancellationToken);
-
-            household.Tasks.Add(task);
-
-            return task;
-        }
-
-        public async Task<HouseholdTask> UpdateTaskByHouseholdIdAsync(int id, HouseholdTask task, CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<HouseholdTask> DeleteTaskByHouseholdIdAsync(int id, HouseholdTask task, CancellationToken cancellationToken = default)
-        {
-            HouseholdGroup household = await _householdGroups
-                                    .SingleOrDefaultAsync(hg => hg.Id == id, cancellationToken);
-
-            household.Tasks.Remove(task);
-
-            return task;
-        }
-
-        public async Task<ShoppingList> AddShoppingListByHouseholdIdAsync(int id, ShoppingList shoppingList, CancellationToken cancellationToken = default)
-        {
-            HouseholdGroup household = await _householdGroups
-                                    .SingleOrDefaultAsync(hg => hg.Id == id, cancellationToken);
-
-            household.ShoppingsLists.Add(shoppingList);
-
-            return shoppingList;
-        }
-
-        public async Task<ShoppingList> UpdateShoppingListByHouseholdIdAsync(int id, ShoppingList shoppingList, CancellationToken cancellationToken = default)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public async Task<ShoppingList> DeleteShoppingListByHouseholdIdAsync(int id, ShoppingList shoppingList, CancellationToken cancellationToken = default)
-        {
-            HouseholdGroup household = await _householdGroups
-                                    .SingleOrDefaultAsync(hg => hg.Id == id, cancellationToken);
-
-            household.ShoppingsLists.Remove(shoppingList);
-
-            return shoppingList;
-        }
-
         public async Task<IReadOnlyList<User>> GetAllUsersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
             HouseholdGroup household = await _householdGroups
@@ -108,10 +38,10 @@ namespace Infrastructure.Persistence.Repositories
         public async Task<IReadOnlyList<ShoppingList>> GetAllShoppingListsByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
             HouseholdGroup household = await _householdGroups
-                                                    .Include(hg => hg.ShoppingsLists)
+                                                    .Include(hg => hg.ShoppingLists)
                                                 .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
-            return (IReadOnlyList<ShoppingList>)household?.ShoppingsLists;
+            return (IReadOnlyList<ShoppingList>)household?.ShoppingLists;
         }
     }
 }

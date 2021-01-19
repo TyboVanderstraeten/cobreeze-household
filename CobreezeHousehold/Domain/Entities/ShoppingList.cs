@@ -1,5 +1,6 @@
 ﻿using Domain.Common;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace Domain.Entities
@@ -16,6 +17,21 @@ namespace Domain.Entities
         public ShoppingList(string name)
         {
             Name = name;
+        }
+
+        public ShoppingListItem GetShoppingListItemById(int id)
+        {
+            return Items.SingleOrDefault(sli => sli.Id == id);
+        }
+
+        public void AddShoppingListItem(ShoppingListItem item)
+        {
+            Items.Add(item);
+        }
+
+        public void RemoveShoppingListItem(ShoppingListItem item)
+        {
+            Items.Remove(item);
         }
     }
 }

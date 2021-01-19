@@ -40,6 +40,13 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
                     throw new ApiException("User Not Found.");
                 }
 
+                foreach(var m in household.Tasks)
+                {
+                    var p = m.Created;
+                }
+                /*
+                 * TODO: does not work since members is not loaded thus 0 -> nothing to remove from..
+                 */
                 household.Members.Remove(user);
 
                 await _householdGroupRepositoryAsync.UpdateAsync(household, cancellationToken);
