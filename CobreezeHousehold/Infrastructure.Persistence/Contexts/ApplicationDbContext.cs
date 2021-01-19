@@ -8,9 +8,6 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence.Contexts
 {
-    /*
-     * TODO: users and households should not have plural table name
-     */
     public class ApplicationDbContext : DbContext
     {
         private readonly IDateTimeService _dateTimeService;
@@ -18,6 +15,7 @@ namespace Infrastructure.Persistence.Contexts
 
         public DbSet<User> Users { get; set; }
         public DbSet<HouseholdGroup> HouseholdGroups { get; set; }
+        public DbSet<ShoppingList> ShoppingLists { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTimeService dateTimeService,
             IAuthenticatedUserService authenticatedUserService) : base(options)
@@ -26,6 +24,18 @@ namespace Infrastructure.Persistence.Contexts
 
             _dateTimeService = dateTimeService;
             _authenticatedUserService = authenticatedUserService;
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            /*
+             * TODO: custom config classes
+             */
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().ToTable("User");
+            modelBuilder.Entity<HouseholdGroup>().ToTable("HouseholdGroup");
+            modelBuilder.Entity<ShoppingList>().ToTable("ShoppingList");
         }
 
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
