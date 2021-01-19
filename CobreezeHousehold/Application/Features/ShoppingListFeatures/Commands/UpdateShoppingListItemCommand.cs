@@ -35,9 +35,15 @@ namespace Application.Features.ShoppingListFeatures.Commands
                 }
 
                 ShoppingListItem item = shoppingList.GetShoppingListItemById(command.Id);
+
+                if (item == null)
+                {
+                    throw new ApiException("Shopping List Item Not Found.");
+                }
+
                 item.Description = command.Description;
                 item.RecipientId = command.RecipientId;
-                
+
                 /*
                  * TODO: does this update? Or entityState needs to be set to modified?
                  */

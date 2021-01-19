@@ -17,12 +17,10 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
         public class DeleteMemberByIdCommandHandler : IRequestHandler<DeleteMemberByIdCommand, Response<User>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
-            private readonly IUserRepositoryAsync _userRepositoryAsync;
 
-            public DeleteMemberByIdCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync, IUserRepositoryAsync userRepositoryAsync)
+            public DeleteMemberByIdCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync)
             {
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
-                _userRepositoryAsync = userRepositoryAsync;
             }
 
             public async Task<Response<User>> Handle(DeleteMemberByIdCommand command, CancellationToken cancellationToken)
@@ -34,7 +32,7 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
                     throw new ApiException("Household Not Found.");
                 }
 
-                User user = await _userRepositoryAsync.GetByIdAsync(command.UserId, cancellationToken);
+                User user = household.GetMemberById(command.UserId);
 
                 if (user == null)
                 {

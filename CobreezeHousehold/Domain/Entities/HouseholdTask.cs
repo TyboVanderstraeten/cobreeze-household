@@ -5,6 +5,9 @@ using System.Text.Json.Serialization;
 
 namespace Domain.Entities
 {
+    /*
+     * TODO: implement recurring tasks as well
+     */
     public class HouseholdTask : EditableBaseEntity
     {
         public int HouseholdGroupId { get; set; }
