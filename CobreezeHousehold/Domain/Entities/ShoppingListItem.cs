@@ -12,5 +12,10 @@ namespace Domain.Entities
         public int RecipientId { get; set; }
         [JsonIgnore]
         public User Recipient { get; set; }
+
+        public ShoppingListItem(string description)
+        {
+            Description = description;
+        }
     }
 }
