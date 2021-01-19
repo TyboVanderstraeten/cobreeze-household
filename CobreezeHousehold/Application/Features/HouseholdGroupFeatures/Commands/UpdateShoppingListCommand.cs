@@ -8,22 +8,23 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Commands
 {
-    public class DeleteShoppingListByIdCommand : IRequest<Response<ShoppingList>>
+    public class UpdateShoppingListCommand : IRequest<Response<ShoppingList>>
     {
         public int HouseholdId { get; set; }
 
         public int ShoppingListId { get; set; }
+        public string Name { get; set; }
 
-        public class DeleteShoppingListByIdCommandHandler : IRequestHandler<DeleteShoppingListByIdCommand, Response<ShoppingList>>
+        public class UpdateShoppingListCommandHandler : IRequestHandler<UpdateShoppingListCommand, Response<ShoppingList>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
 
-            public DeleteShoppingListByIdCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync)
+            public UpdateShoppingListCommandHandler(IHouseholdGroupRepositoryAsync householdGroupRepositoryAsync)
             {
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
             }
 
-            public async Task<Response<ShoppingList>> Handle(DeleteShoppingListByIdCommand command, CancellationToken cancellationToken)
+            public async Task<Response<ShoppingList>> Handle(UpdateShoppingListCommand command, CancellationToken cancellationToken)
             {
                 HouseholdGroup household = await _householdGroupRepositoryAsync.GetByIdAsync(command.HouseholdId, cancellationToken);
 
@@ -39,7 +40,7 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
                     throw new ApiException("Shopping List Not Found.");
                 }
 
-                household.RemoveShoppingList(shoppingList);
+                shoppingList.Name = command.Name;
 
                 await _householdGroupRepositoryAsync.UpdateAsync(household, cancellationToken);
 
