@@ -6,7 +6,7 @@ namespace Presentation.WebApi.Services
 {
     public class AuthenticatedUserService : IAuthenticatedUserService
     {
-        public string UserId { get; set; }
+        public int UserId { get; set; }
 
         //public AuthenticatedUserService(IHttpContextAccessor httpContextAccessor)
         //{
@@ -15,7 +15,7 @@ namespace Presentation.WebApi.Services
 
         public AuthenticatedUserService()
         {
-            UserId = "TyboTestUID";
+            UserId = 2;
         }
     }
 }
