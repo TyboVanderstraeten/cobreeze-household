@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Presentation.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
-    public class HouseholdController : BaseApiController
+    public class HouseholdsController : BaseApiController
     {
         /// <summary>
         /// Gets Household Entity by Id.
@@ -37,8 +37,8 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPut("[action]")]
-        public async Task<IActionResult> Update(int id, UpdateHouseholdCommand command)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromQuery] int id, UpdateHouseholdCommand command)
         {
             if (id != command.Id)
             {
@@ -64,7 +64,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPost("Member")]
+        [HttpPost("Members")]
         public async Task<IActionResult> AddMember(AddMemberCommand command)
         {
             return Ok(await Mediator.Send(command));
@@ -75,8 +75,86 @@ namespace Presentation.WebApi.Controllers.v1
         /// </summary>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpDelete("Member")]
+        [HttpDelete("Members")]
         public async Task<IActionResult> DeleteMember(DeleteMemberByIdCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Creates a New Task.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("Tasks")]
+        public async Task<IActionResult> AddTask(AddTaskCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Updates the Task Entity based on Id.   
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("Tasks")]
+        public async Task<IActionResult> UpdateTask([FromQuery] int id, UpdateTaskCommand command)
+        {
+            if (id != command.TaskId)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Deletes a Task.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpDelete("Tasks")]
+        public async Task<IActionResult> DeleteTask(DeleteTaskByIdCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Creates a New Shopping List.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPost("Shopping-Lists")]
+        public async Task<IActionResult> AddShoppingList(AddShoppingListCommand command)
+        {
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Updates the Shopping List Entity based on Id.   
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpPut("Shopping-Lists")]
+        public async Task<IActionResult> UpdateShoppingList([FromQuery] int id, UpdateShoppingListCommand command)
+        {
+            if (id != command.ShoppingListId)
+            {
+                return BadRequest();
+            }
+
+            return Ok(await Mediator.Send(command));
+        }
+
+        /// <summary>
+        /// Deletes a Shopping List.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns></returns>
+        [HttpDelete("Shopping-Lists")]
+        public async Task<IActionResult> DeleteShoppingList(DeleteShoppingListByIdCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

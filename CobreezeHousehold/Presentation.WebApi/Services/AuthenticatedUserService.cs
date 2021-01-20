@@ -6,6 +6,9 @@ namespace Presentation.WebApi.Services
 {
     public class AuthenticatedUserService : IAuthenticatedUserService
     {
+        /*
+         * TODO: uncomment
+         */
         public int UserId { get; set; }
 
         //public AuthenticatedUserService(IHttpContextAccessor httpContextAccessor)

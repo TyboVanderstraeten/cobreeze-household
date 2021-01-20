@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Presentation.WebApi.Controllers.v1
 {
     [ApiVersion("1.0")]
-    public class UserController : BaseApiController
+    public class UsersController : BaseApiController
     {
         /// <summary>
         /// Gets all Users.
@@ -48,8 +48,8 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <param name="command"></param>
         /// <returns></returns>
-        [HttpPut("[action]")]
-        public async Task<IActionResult> Update(int id, UpdateUserCommand command)
+        [HttpPut]
+        public async Task<IActionResult> Update([FromQuery] int id, UpdateUserCommand command)
         {
             if (id != command.Id)
             {

@@ -4,27 +4,21 @@
         <name>Presentation.WebApi</name>
     </assembly>
     <members>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAll(Application.Filters.PaginationFilter)">
-            <summary>
-            Gets all Households.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetById(System.Int32)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.GetById(System.Int32)">
             <summary>
             Gets Household Entity by Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.Create(Application.Features.HouseholdGroupFeatures.Commands.CreateHouseholdCommand)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.Create(Application.Features.HouseholdGroupFeatures.Commands.CreateHouseholdCommand)">
             <summary>
             Creates a New Household.
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.Update(System.Int32,Application.Features.HouseholdGroupFeatures.Commands.UpdateHouseholdCommand)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.Update(System.Int32,Application.Features.HouseholdGroupFeatures.Commands.UpdateHouseholdCommand)">
             <summary>
             Updates the Household Entity based on Id.   
             </summary>
@@ -32,69 +26,113 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.Delete(System.Int32)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.Delete(System.Int32)">
             <summary>
             Deletes Household Entity based on Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.AddMember(Application.Features.HouseholdGroupFeatures.Commands.AddMemberCommand)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.AddMember(Application.Features.HouseholdGroupFeatures.Commands.AddMemberCommand)">
             <summary>
             Creates a New HouseholdGroupUser.
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.DeleteMember(Application.Features.HouseholdGroupFeatures.Commands.DeleteMemberByIdCommand)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.DeleteMember(Application.Features.HouseholdGroupFeatures.Commands.DeleteMemberByIdCommand)">
             <summary>
             Deletes a HouseholdGroupUser.
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllUsersByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.AddTask(Application.Features.HouseholdGroupFeatures.Commands.AddTaskCommand)">
+            <summary>
+            Creates a New Task.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.UpdateTask(System.Int32,Application.Features.HouseholdGroupFeatures.Commands.UpdateTaskCommand)">
+            <summary>
+            Updates the Task Entity based on Id.   
+            </summary>
+            <param name="id"></param>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.DeleteTask(Application.Features.HouseholdGroupFeatures.Commands.DeleteTaskByIdCommand)">
+            <summary>
+            Deletes a Task.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.AddShoppingList(Application.Features.HouseholdGroupFeatures.Commands.AddShoppingListCommand)">
+            <summary>
+            Creates a New Shopping List.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.UpdateShoppingList(System.Int32,Application.Features.HouseholdGroupFeatures.Commands.UpdateShoppingListCommand)">
+            <summary>
+            Updates the Shopping List Entity based on Id.   
+            </summary>
+            <param name="id"></param>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.DeleteShoppingList(Application.Features.HouseholdGroupFeatures.Commands.DeleteShoppingListByIdCommand)">
+            <summary>
+            Deletes a Shopping List.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.GetAllUsersByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
             <summary>
             Gets all Users by Household Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllTasksByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.GetAllTasksByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
             <summary>
             Gets all Tasks by Household Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.GetAllShoppingListsByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.GetAllShoppingListsByHouseholdId(System.Int32,Application.Filters.PaginationFilter)">
             <summary>
             Gets all Shopping Lists by Household Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAll(Application.Filters.PaginationFilter)">
+        <member name="M:Presentation.WebApi.Controllers.v1.UsersController.GetAll(Application.Filters.PaginationFilter)">
             <summary>
             Gets all Users.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetById(System.Int32)">
+        <member name="M:Presentation.WebApi.Controllers.v1.UsersController.GetById(System.Int32)">
             <summary>
             Gets User Entity by Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.UserController.Create(Application.Features.UserFeatures.Commands.CreateUserCommand)">
+        <member name="M:Presentation.WebApi.Controllers.v1.UsersController.Create(Application.Features.UserFeatures.Commands.CreateUserCommand)">
             <summary>
             Creates a New User.
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.UserController.Update(System.Int32,Application.Features.UserFeatures.Commands.UpdateUserCommand)">
+        <member name="M:Presentation.WebApi.Controllers.v1.UsersController.Update(System.Int32,Application.Features.UserFeatures.Commands.UpdateUserCommand)">
             <summary>
             Updates the User Entity based on Id.   
             </summary>
@@ -102,14 +140,14 @@
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.UserController.Delete(System.Int32)">
+        <member name="M:Presentation.WebApi.Controllers.v1.UsersController.Delete(System.Int32)">
             <summary>
             Deletes User Entity based on Id.
             </summary>
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.UserController.GetAllHouseholdsByUserId(System.Int32,Application.Filters.PaginationFilter)">
+        <member name="M:Presentation.WebApi.Controllers.v1.UsersController.GetAllHouseholdsByUserId(System.Int32,Application.Filters.PaginationFilter)">
             <summary>
             Gets all Households by User Id.
             </summary>
