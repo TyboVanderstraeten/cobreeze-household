@@ -9,11 +9,11 @@ namespace Domain.Entities
     {
         public string Name { get; set; }
         [JsonIgnore]
-        public ICollection<User> Members { get; } = new List<User>();
+        public virtual ICollection<User> Members { get; } = new List<User>();
         [JsonIgnore]
-        public ICollection<HouseholdTask> Tasks { get; } = new List<HouseholdTask>();
+        public virtual ICollection<HouseholdTask> Tasks { get; } = new List<HouseholdTask>();
         [JsonIgnore]
-        public ICollection<ShoppingList> ShoppingLists { get; } = new List<ShoppingList>();
+        public virtual ICollection<ShoppingList> ShoppingLists { get; } = new List<ShoppingList>();
 
         public HouseholdGroup(string name)
         {

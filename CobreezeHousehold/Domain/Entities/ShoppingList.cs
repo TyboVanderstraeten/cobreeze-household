@@ -9,10 +9,10 @@ namespace Domain.Entities
     {
         public int HouseholdGroupId { get; set; }
         [JsonIgnore]
-        public HouseholdGroup Household { get; set; }
+        public virtual HouseholdGroup Household { get; set; }
         public string Name { get; set; }
         [JsonIgnore]
-        public ICollection<ShoppingListItem> Items { get; } = new List<ShoppingListItem>();
+        public virtual ICollection<ShoppingListItem> Items { get; } = new List<ShoppingListItem>();
 
         public ShoppingList(string name)
         {

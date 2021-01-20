@@ -20,10 +20,15 @@ namespace Infrastructure.Persistence.Contexts
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IDateTimeService dateTimeService,
             IAuthenticatedUserService authenticatedUserService) : base(options)
         {
-            ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-
             _dateTimeService = dateTimeService;
             _authenticatedUserService = authenticatedUserService;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

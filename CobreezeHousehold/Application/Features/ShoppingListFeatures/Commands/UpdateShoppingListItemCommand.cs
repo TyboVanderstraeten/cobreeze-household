@@ -44,9 +44,6 @@ namespace Application.Features.ShoppingListFeatures.Commands
                 item.Description = command.Description;
                 item.RecipientId = command.RecipientId;
 
-                /*
-                 * TODO: does this update? Or entityState needs to be set to modified?
-                 */
                 await _shoppingListRepository.UpdateAsync(shoppingList, cancellationToken);
 
                 return new Response<ShoppingListItem>(item);

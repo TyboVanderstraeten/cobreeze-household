@@ -19,27 +19,21 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<IReadOnlyList<User>> GetAllMembersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            HouseholdGroup household = await _householdGroups
-                                    .Include(hg => hg.Members)
-                                    .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
+            HouseholdGroup household = await _householdGroups.SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
             return (IReadOnlyList<User>)household?.Members;
         }
 
         public async Task<IReadOnlyList<HouseholdTask>> GetAllTasksByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            HouseholdGroup household = await _householdGroups
-                                                    .Include(hg => hg.Tasks)
-                                                .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
+            HouseholdGroup household = await _householdGroups.SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
             return (IReadOnlyList<HouseholdTask>)household?.Tasks;
         }
 
         public async Task<IReadOnlyList<ShoppingList>> GetAllShoppingListsByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            HouseholdGroup household = await _householdGroups
-                                                    .Include(hg => hg.ShoppingLists)
-                                                .SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
+            HouseholdGroup household = await _householdGroups.SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
             return (IReadOnlyList<ShoppingList>)household?.ShoppingLists;
         }

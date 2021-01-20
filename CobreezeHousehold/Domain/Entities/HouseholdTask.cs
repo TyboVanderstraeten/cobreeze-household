@@ -12,7 +12,7 @@ namespace Domain.Entities
     {
         public int HouseholdGroupId { get; set; }
         [JsonIgnore]
-        public HouseholdGroup Household { get; set; }
+        public virtual HouseholdGroup Household { get; set; }
         public TaskType TaskType { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -20,7 +20,7 @@ namespace Domain.Entities
         public DateTime? EndTime { get; set; }
         public int ExecutorId { get; set; }
         [JsonIgnore]
-        public User Executor { get; set; }
+        public virtual User Executor { get; set; }
 
         public HouseholdTask(TaskType taskType, string name)
         {

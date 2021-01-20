@@ -38,9 +38,12 @@ namespace Application.Features.HouseholdGroupFeatures.Commands
                 }
 
                 HouseholdGroup household = new HouseholdGroup(command.Name);
-                household.Members.Add(creator);
 
                 await _householdGroupRepositoryAsync.AddAsync(household, cancellationToken);
+
+                household.Members.Add(creator);
+
+                await _householdGroupRepositoryAsync.UpdateAsync(household, cancellationToken);
 
                 return new Response<HouseholdGroup>(household);
             }

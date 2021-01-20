@@ -7,11 +7,11 @@ namespace Domain.Entities
     {
         public int ShoppingListId { get; set; }
         [JsonIgnore]
-        public ShoppingList ShoppingList { get; set; }
+        public virtual ShoppingList ShoppingList { get; set; }
         public string Description { get; set; }
         public int RecipientId { get; set; }
         [JsonIgnore]
-        public User Recipient { get; set; }
+        public virtual User Recipient { get; set; }
 
         public ShoppingListItem(string description)
         {

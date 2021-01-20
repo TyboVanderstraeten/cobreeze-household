@@ -19,9 +19,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<IReadOnlyList<ShoppingListItem>> GetAllShoppingListItemsByShoppingListIdAsync(int id, CancellationToken cancellationToken = default)
         {
-            ShoppingList shoppingList = await _shoppingLists
-                .Include(sl => sl.Items)
-                .SingleOrDefaultAsync(sl => sl.Id == id);
+            ShoppingList shoppingList = await _shoppingLists.SingleOrDefaultAsync(sl => sl.Id == id);
 
             return (IReadOnlyList<ShoppingListItem>)shoppingList?.Items;
         }

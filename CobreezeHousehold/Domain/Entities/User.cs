@@ -13,7 +13,7 @@ namespace Domain.Entities
         public string Nickname { get; set; }
         public string PhoneNumber { get; set; }
         [JsonIgnore]
-        public IReadOnlyCollection<HouseholdGroup> Households { get; } = new List<HouseholdGroup>();
+        public virtual IReadOnlyCollection<HouseholdGroup> Households { get; } = new List<HouseholdGroup>();
 
         public User(string firstName, string lastName, DateTime dateOfBirth)
         {
