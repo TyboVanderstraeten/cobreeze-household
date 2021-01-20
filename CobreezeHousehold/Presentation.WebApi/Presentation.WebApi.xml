@@ -39,14 +39,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.AddMember(Application.Features.HouseholdGroupFeatures.Commands.AddMemberByHouseholdIdCommand)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.AddMember(Application.Features.HouseholdGroupFeatures.Commands.AddMemberCommand)">
             <summary>
             Creates a New HouseholdGroupUser.
             </summary>
             <param name="command"></param>
             <returns></returns>
         </member>
-        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.DeleteMember(Application.Features.HouseholdGroupFeatures.Commands.DeleteMemberByHouseholdIdCommand)">
+        <member name="M:Presentation.WebApi.Controllers.v1.HouseholdController.DeleteMember(Application.Features.HouseholdGroupFeatures.Commands.DeleteMemberByIdCommand)">
             <summary>
             Deletes a HouseholdGroupUser.
             </summary>

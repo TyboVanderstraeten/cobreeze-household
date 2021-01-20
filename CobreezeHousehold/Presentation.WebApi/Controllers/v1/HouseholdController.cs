@@ -16,7 +16,8 @@ namespace Presentation.WebApi.Controllers.v1
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter)
         {
-            return Ok(await Mediator.Send(new GetAllHouseholdsQuery() { PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
+            return Ok();
+           // return Ok(await Mediator.Send(new GetAllHouseholdsQuery() { PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
         }
 
         /// <summary>

@@ -22,6 +22,7 @@ namespace Infrastructure.Persistence
             services.AddScoped(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             services.AddScoped<IUserRepositoryAsync, UserRepositoryAsync>();
             services.AddScoped<IHouseholdGroupRepositoryAsync, HouseholdGroupRepositoryAsync>();
+            services.AddScoped<IShoppingListRepositoryAsync, ShoppingListRepositoryAsync>();
         }
     }
 }

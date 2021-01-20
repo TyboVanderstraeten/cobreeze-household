@@ -17,7 +17,7 @@ namespace Infrastructure.Persistence.Repositories
             _householdGroups = dbContext.Set<HouseholdGroup>();
         }
 
-        public async Task<IReadOnlyList<User>> GetAllUsersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyList<User>> GetAllMembersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
             HouseholdGroup household = await _householdGroups
                                     .Include(hg => hg.Members)
