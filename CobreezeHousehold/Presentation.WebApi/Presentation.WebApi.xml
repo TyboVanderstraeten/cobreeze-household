@@ -112,6 +112,35 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.ShoppingListsController.GetAllHouseholdsByUserId(System.Int32,Application.Filters.PaginationFilter)">
+            <summary>
+            Gets all Shopping List Items by Shopping List Id.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.ShoppingListsController.AddShoppingListItem(Application.Features.ShoppingListFeatures.Commands.AddShoppingListItemCommand)">
+            <summary>
+            Creates a New Shopping List Item.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.ShoppingListsController.UpdateShoppingListItem(System.Int32,Application.Features.ShoppingListFeatures.Commands.UpdateShoppingListItemCommand)">
+            <summary>
+            Updates the Shopping List Item Entity based on Id.   
+            </summary>
+            <param name="id"></param>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.v1.ShoppingListsController.DeleteShoppingListItem(Application.Features.ShoppingListFeatures.Commands.DeleteShoppingListItemByIdCommand)">
+            <summary>
+            Deletes a Shopping List Item.
+            </summary>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
         <member name="M:Presentation.WebApi.Controllers.v1.UsersController.GetAll(Application.Filters.PaginationFilter)">
             <summary>
             Gets all Users.

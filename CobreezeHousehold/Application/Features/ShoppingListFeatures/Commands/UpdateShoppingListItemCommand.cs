@@ -12,7 +12,7 @@ namespace Application.Features.ShoppingListFeatures.Commands
     {
         public int ShoppingListId { get; set; }
 
-        public int Id { get; set; }
+        public int ShoppingListItemId { get; set; }
         public string Description { get; set; }
         public int RecipientId { get; set; }
 
@@ -34,7 +34,7 @@ namespace Application.Features.ShoppingListFeatures.Commands
                     throw new ApiException("Shopping List Not Found.");
                 }
 
-                ShoppingListItem item = shoppingList.GetShoppingListItemById(command.Id);
+                ShoppingListItem item = shoppingList.GetShoppingListItemById(command.ShoppingListItemId);
 
                 if (item == null)
                 {
