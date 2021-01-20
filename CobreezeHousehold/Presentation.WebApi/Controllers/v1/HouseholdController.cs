@@ -10,17 +10,6 @@ namespace Presentation.WebApi.Controllers.v1
     public class HouseholdController : BaseApiController
     {
         /// <summary>
-        /// Gets all Households.
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter)
-        {
-            return Ok();
-           // return Ok(await Mediator.Send(new GetAllHouseholdsQuery() { PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
-        }
-
-        /// <summary>
         /// Gets Household Entity by Id.
         /// </summary>
         /// <param name="id"></param>
