@@ -4,6 +4,7 @@ using Domain.Common;
 using Infrastructure.Persistence.Contexts;
 using Infrastructure.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -37,13 +38,19 @@ namespace Infrastructure.Persistence.Repositories
 
                 _cache.Set($"{typeof(T)}_GetAll", data);
 
-                Debug.WriteLine("\n\n--------------- RETRIEVED FROM DATABASE ---------------\n\n");
-                Debug.WriteLine(_cache);
+                Task.Run(() =>
+                {
+                    Debug.WriteLine("\n\n--------------- RETRIEVED FROM DATABASE ---------------\n\n");
+                    Debug.WriteLine(_cache);
+                });
                 return data;
             }
 
-            Debug.WriteLine("\n\n--------------- RETRIEVED FROM CACHE ---------------\n\n");
-            Debug.WriteLine(_cache);
+            Task.Run(() =>
+            {
+                Debug.WriteLine("\n\n--------------- RETRIEVED FROM CACHE ---------------\n\n");
+                Debug.WriteLine(_cache);
+            });
 
             return cachedData;
         }

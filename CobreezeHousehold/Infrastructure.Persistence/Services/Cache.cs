@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 
@@ -43,8 +44,15 @@ namespace Infrastructure.Persistence.Services
             if (_cache.ContainsKey(key))
             {
                 string data = _cache[key];
-                T parsedData = JsonSerializer.Deserialize<T>(data);
-                return parsedData;
+                CacheObject<T> parsedData = JsonSerializer.Deserialize<CacheObject<T>>(data);
+                if (parsedData.Expires < DateTime.Now)
+                {
+                    _cache.Remove(key);
+
+                    return default(T);
+                }
+
+                return parsedData.Data;
             }
 
             return default(T);
@@ -53,7 +61,8 @@ namespace Infrastructure.Persistence.Services
         public void Set(string key, object data)
         {
             key = $"{KeyPrefix}_{key}";
-            string formattedData = JsonSerializer.Serialize(data);
+            CacheObject<object> objectToCache = new CacheObject<object>(data, DateTime.Now);
+            string formattedData = JsonSerializer.Serialize(objectToCache);
             _cache[key] = formattedData;
         }
 
@@ -70,10 +79,26 @@ namespace Infrastructure.Persistence.Services
             stringBuilder.Append("Values:\n");
             foreach (string key in _cache.Keys)
             {
-                stringBuilder.Append($"\n\t- {key}:\n\t\t{_cache[key]}\n\n");
+                CacheObject<object> cachedObject = JsonSerializer.Deserialize<CacheObject<object>>(_cache[key]);
+                stringBuilder.Append($"\n\t- {key}:\n\t- Created: {cachedObject.Created}\tExpires: {cachedObject.Expires}\n\t\t{cachedObject.Data}\n\n");
             }
             stringBuilder.Append($"\n\n---------------------------------------------\n\n\n");
             return stringBuilder.ToString();
+        }
+    }
+
+    public class CacheObject<T>
+    {
+
+        public T Data { get; }
+        public DateTime Created { get; }
+        public DateTime Expires { get; }
+
+        public CacheObject(T data, DateTime created)
+        {
+            Data = data;
+            Created = created;
+            Expires = Created.Add(TimeSpan.FromSeconds(10));
         }
     }
 }
