@@ -2,8 +2,10 @@
 using Application.Wrappers;
 using Domain.Common;
 using Infrastructure.Persistence.Contexts;
+using Infrastructure.Persistence.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,17 +15,37 @@ namespace Infrastructure.Persistence.Repositories
     public class GenericRepositoryAsync<T> : IGenericRepositoryAsync<T> where T : BaseEntity
     {
         private readonly ApplicationDbContext _dbContext;
+        private readonly Cache _cache;
 
         public GenericRepositoryAsync(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
+            _cache = Cache.GetInstance();
         }
 
         public async Task<IReadOnlyCollection<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _dbContext
-                        .Set<T>()
-                        .ToListAsync(cancellationToken);
+            List<T> cachedData = _cache.Get<List<T>>($"{typeof(T)}_GetAll");
+
+            if (cachedData == default(List<T>))
+            {
+                await Task.Delay(1500);
+
+                List<T> data = await _dbContext
+                            .Set<T>()
+                            .ToListAsync(cancellationToken);
+
+                _cache.Set($"{typeof(T)}_GetAll", data);
+
+                Debug.WriteLine("\n\n--------------- RETRIEVED FROM DATABASE ---------------\n\n");
+                Debug.WriteLine(_cache);
+                return data;
+            }
+
+            Debug.WriteLine("\n\n--------------- RETRIEVED FROM CACHE ---------------\n\n");
+            Debug.WriteLine(_cache);
+
+            return cachedData;
         }
 
         public async Task<PagedResponse<IReadOnlyCollection<T>>> GetPagedResponseAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)

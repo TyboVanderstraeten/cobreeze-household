@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace Application.Features.UserFeatures.Queries
 {
-    public class GetAllUsersQuery : IRequest<PagedResponse<IReadOnlyCollection<User>>>
+    public class GetAllUsersQuery : IRequest<Response<IReadOnlyCollection<User>>>
     {
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
 
-        public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, PagedResponse<IReadOnlyCollection<User>>>
+        public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, Response<IReadOnlyCollection<User>>>
         {
             private readonly IUserRepositoryAsync _userRepository;
 
@@ -23,16 +23,16 @@ namespace Application.Features.UserFeatures.Queries
                 _userRepository = userRepository;
             }
 
-            public async Task<PagedResponse<IReadOnlyCollection<User>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
+            public async Task<Response<IReadOnlyCollection<User>>> Handle(GetAllUsersQuery query, CancellationToken cancellationToken)
             {
-                PagedResponse<IReadOnlyCollection<User>> users = await _userRepository.GetPagedResponseAsync(query.PageNumber, query.PageSize, cancellationToken);
+                IReadOnlyCollection<User> users = await _userRepository.GetAllAsync(cancellationToken);
 
-                if (users.Data == null)
+                if (users == null)
                 {
                     throw new ApiException("Users Not Found.");
                 }
 
-                return users;
+                return new Response<IReadOnlyCollection<User>>(users);
             }
         }
     }

@@ -17,7 +17,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<PagedResponse<IReadOnlyCollection<User>>>> GetAll([FromQuery] PaginationFilter paginationFilter)
+        public async Task<ActionResult<Response<IReadOnlyCollection<User>>>> GetAll([FromQuery] PaginationFilter paginationFilter)
         {
             return Ok(await Mediator.Send(new GetAllUsersQuery() { PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
         }
