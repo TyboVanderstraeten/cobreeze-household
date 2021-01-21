@@ -1,7 +1,10 @@
 ﻿using Application.Features.ShoppingListFeatures.Commands;
 using Application.Features.ShoppingListFeatures.Queries;
 using Application.Filters;
+using Application.Wrappers;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Presentation.WebApi.Controllers.v1
@@ -15,7 +18,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Items")]
-        public async Task<IActionResult> GetAllHouseholdsByUserId(int id)
+        public async Task<ActionResult<Response<IReadOnlyCollection<ShoppingListItem>>>> GetAllHouseholdsByUserId(int id)
         {
             return Ok(await Mediator.Send(new GetAllShoppingListItemsByShoppingListIdQuery() { Id = id }));
         }
@@ -26,7 +29,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Items")]
-        public async Task<IActionResult> AddShoppingListItem(AddShoppingListItemCommand command)
+        public async Task<ActionResult<Response<ShoppingListItem>>> AddShoppingListItem(AddShoppingListItemCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -38,7 +41,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("Items")]
-        public async Task<IActionResult> UpdateShoppingListItem([FromQuery] int id, UpdateShoppingListItemCommand command)
+        public async Task<ActionResult<Response<ShoppingListItem>>> UpdateShoppingListItem([FromQuery] int id, UpdateShoppingListItemCommand command)
         {
             if (id != command.ShoppingListItemId)
             {
@@ -54,7 +57,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete("Items")]
-        public async Task<IActionResult> DeleteShoppingListItem(DeleteShoppingListItemByIdCommand command)
+        public async Task<ActionResult<Response<ShoppingListItem>>> DeleteShoppingListItem(DeleteShoppingListItemByIdCommand command)
         {
             return Ok(await Mediator.Send(command));
         }

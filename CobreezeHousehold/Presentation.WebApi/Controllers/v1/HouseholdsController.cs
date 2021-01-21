@@ -1,7 +1,10 @@
 ﻿using Application.Features.HouseholdGroupFeatures.Commands;
 using Application.Features.HouseholdGroupFeatures.Queries;
 using Application.Filters;
+using Application.Wrappers;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Presentation.WebApi.Controllers.v1
@@ -15,7 +18,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<Response<HouseholdGroup>>> GetById(int id)
         {
             return Ok(await Mediator.Send(new GetHouseholdByIdQuery { Id = id }));
         }
@@ -26,7 +29,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Create(CreateHouseholdCommand command)
+        public async Task<ActionResult<Response<HouseholdGroup>>> Create(CreateHouseholdCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -38,7 +41,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update([FromQuery] int id, UpdateHouseholdCommand command)
+        public async Task<ActionResult<Response<HouseholdGroup>>> Update([FromQuery] int id, UpdateHouseholdCommand command)
         {
             if (id != command.Id)
             {
@@ -54,7 +57,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult<Response<HouseholdGroup>>> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteHouseholdByIdCommand { Id = id }));
         }
@@ -65,7 +68,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Members")]
-        public async Task<IActionResult> AddMember(AddMemberCommand command)
+        public async Task<ActionResult<Response<User>>> AddMember(AddMemberCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -76,7 +79,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete("Members")]
-        public async Task<IActionResult> DeleteMember(DeleteMemberByIdCommand command)
+        public async Task<ActionResult<Response<User>>> DeleteMember(DeleteMemberByIdCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -87,7 +90,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Tasks")]
-        public async Task<IActionResult> AddTask(AddTaskCommand command)
+        public async Task<ActionResult<Response<HouseholdTask>>> AddTask(AddTaskCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -99,7 +102,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("Tasks")]
-        public async Task<IActionResult> UpdateTask([FromQuery] int id, UpdateTaskCommand command)
+        public async Task<ActionResult<Response<HouseholdTask>>> UpdateTask([FromQuery] int id, UpdateTaskCommand command)
         {
             if (id != command.TaskId)
             {
@@ -115,7 +118,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete("Tasks")]
-        public async Task<IActionResult> DeleteTask(DeleteTaskByIdCommand command)
+        public async Task<ActionResult<Response<HouseholdTask>>> DeleteTask(DeleteTaskByIdCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -126,7 +129,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost("Shopping-Lists")]
-        public async Task<IActionResult> AddShoppingList(AddShoppingListCommand command)
+        public async Task<ActionResult<Response<ShoppingList>>> AddShoppingList(AddShoppingListCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -138,7 +141,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut("Shopping-Lists")]
-        public async Task<IActionResult> UpdateShoppingList([FromQuery] int id, UpdateShoppingListCommand command)
+        public async Task<ActionResult<Response<ShoppingList>>> UpdateShoppingList([FromQuery] int id, UpdateShoppingListCommand command)
         {
             if (id != command.ShoppingListId)
             {
@@ -154,7 +157,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpDelete("Shopping-Lists")]
-        public async Task<IActionResult> DeleteShoppingList(DeleteShoppingListByIdCommand command)
+        public async Task<ActionResult<Response<ShoppingList>>> DeleteShoppingList(DeleteShoppingListByIdCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -165,7 +168,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Users")]
-        public async Task<IActionResult> GetAllUsersByHouseholdId(int id)
+        public async Task<ActionResult<Response<IReadOnlyCollection<User>>>> GetAllUsersByHouseholdId(int id)
         {
             return Ok(await Mediator.Send(new GetAllMembersByHouseholdIdQuery() { Id = id }));
         }
@@ -176,7 +179,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Tasks")]
-        public async Task<IActionResult> GetAllTasksByHouseholdId(int id)
+        public async Task<ActionResult<Response<IReadOnlyCollection<HouseholdTask>>>> GetAllTasksByHouseholdId(int id)
         {
             return Ok(await Mediator.Send(new GetAllTasksByHouseholdIdQuery() { Id = id }));
         }
@@ -187,7 +190,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Shopping-Lists")]
-        public async Task<IActionResult> GetAllShoppingListsByHouseholdId(int id)
+        public async Task<ActionResult<Response<IReadOnlyCollection<ShoppingList>>>> GetAllShoppingListsByHouseholdId(int id)
         {
             return Ok(await Mediator.Send(new GetAllShoppingListsByHouseholdIdQuery() { Id = id }));
         }

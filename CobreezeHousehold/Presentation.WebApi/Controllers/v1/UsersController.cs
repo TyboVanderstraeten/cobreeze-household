@@ -1,7 +1,10 @@
 ﻿using Application.Features.UserFeatures.Commands;
 using Application.Features.UserFeatures.Queries;
 using Application.Filters;
+using Application.Wrappers;
+using Domain.Entities;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Presentation.WebApi.Controllers.v1
@@ -14,7 +17,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter)
+        public async Task<ActionResult<PagedResponse<IReadOnlyCollection<User>>>> GetAll([FromQuery] PaginationFilter paginationFilter)
         {
             return Ok(await Mediator.Send(new GetAllUsersQuery() { PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
         }
@@ -25,7 +28,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<Response<User>>> GetById(int id)
         {
             return Ok(await Mediator.Send(new GetUserByIdQuery { Id = id }));
         }
@@ -36,7 +39,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<IActionResult> Create(CreateUserCommand command)
+        public async Task<ActionResult<Response<User>>> Create(CreateUserCommand command)
         {
             return Ok(await Mediator.Send(command));
         }
@@ -48,7 +51,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="command"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update([FromQuery] int id, UpdateUserCommand command)
+        public async Task<ActionResult<Response<User>>> Update([FromQuery] int id, UpdateUserCommand command)
         {
             if (id != command.Id)
             {
@@ -64,7 +67,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<ActionResult<Response<User>>> Delete(int id)
         {
             return Ok(await Mediator.Send(new DeleteUserByIdCommand { Id = id }));
         }
@@ -75,7 +78,7 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Households")]
-        public async Task<IActionResult> GetAllHouseholdsByUserId(int id)
+        public async Task<ActionResult<Response<IReadOnlyCollection<HouseholdGroup>>>> GetAllHouseholdsByUserId(int id)
         {
             return Ok(await Mediator.Send(new GetAllHouseholdsByUserIdQuery() { Id = id }));
         }
