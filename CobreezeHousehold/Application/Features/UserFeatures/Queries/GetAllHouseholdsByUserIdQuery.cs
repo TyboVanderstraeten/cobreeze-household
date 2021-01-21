@@ -27,14 +27,16 @@ namespace Application.Features.UserFeatures.Queries
 
             public async Task<PagedResponse<IEnumerable<HouseholdGroup>>> Handle(GetAllHouseholdsByUserIdQuery query, CancellationToken cancellationToken)
             {
-                IReadOnlyList<HouseholdGroup> households = await _userRepository.GetAllHouseholdsByUserIdAsync(query.Id,cancellationToken);
+                IReadOnlyList<HouseholdGroup> households = await _userRepository.GetAllHouseholdsByUserIdAsync(query.Id, cancellationToken);
 
                 if (households == null)
                 {
                     throw new ApiException("Households Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<HouseholdGroup>>(households, query.PageNumber, query.PageSize,households.Count);
+                int totalRecords = await _userRepository.GetCountAsync();
+
+                return new PagedResponse<IEnumerable<HouseholdGroup>>(households, query.PageNumber, query.PageSize, totalRecords);
             }
         }
     }

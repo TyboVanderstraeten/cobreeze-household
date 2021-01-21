@@ -76,5 +76,10 @@ namespace Infrastructure.Persistence.Repositories
 
             return entity;
         }
+
+        public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.Set<T>().CountAsync(cancellationToken);
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Application.Interfaces
         Task<T> AddAsync(T entity, CancellationToken cancellationToken = default);
         Task<T> UpdateAsync(T entity, CancellationToken cancellationToken = default);
         Task<T> DeleteAsync(T entity, CancellationToken cancellationToken = default);
+        Task<int> GetCountAsync(CancellationToken cancellationToken = default);
     }
 }

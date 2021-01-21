@@ -3,6 +3,7 @@ using Domain.Common;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -29,6 +30,11 @@ namespace Infrastructure.Persistence.Contexts
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseLazyLoadingProxies();
+
+            /*
+             * TODO: remove
+             */
+            optionsBuilder.LogTo(log => Debug.WriteLine(log));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
