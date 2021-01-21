@@ -7,8 +7,8 @@ namespace Application.Interfaces.Repositories
 {
     public interface IHouseholdGroupRepositoryAsync : IGenericRepositoryAsync<HouseholdGroup>
     {
-        Task<IReadOnlyList<User>> GetAllMembersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default);
-        Task<IReadOnlyList<HouseholdTask>> GetAllTasksByHouseholdIdAsync(int id, CancellationToken cancellationToken = default);
-        Task<IReadOnlyList<ShoppingList>> GetAllShoppingListsByHouseholdIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<IReadOnlyCollection<User>> GetAllMembersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<IReadOnlyCollection<HouseholdTask>> GetAllTasksByHouseholdIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<IReadOnlyCollection<ShoppingList>> GetAllShoppingListsByHouseholdIdAsync(int id, CancellationToken cancellationToken = default);
     }
 }

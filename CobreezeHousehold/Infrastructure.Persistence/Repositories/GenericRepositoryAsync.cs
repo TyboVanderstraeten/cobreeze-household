@@ -1,4 +1,5 @@
 ﻿using Application.Interfaces;
+using Application.Wrappers;
 using Domain.Common;
 using Infrastructure.Persistence.Contexts;
 using Microsoft.EntityFrameworkCore;
@@ -18,20 +19,24 @@ namespace Infrastructure.Persistence.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IReadOnlyList<T>> GetAllAsync(CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyCollection<T>> GetAllAsync(CancellationToken cancellationToken = default)
         {
             return await _dbContext
                         .Set<T>()
                         .ToListAsync(cancellationToken);
         }
 
-        public async Task<IReadOnlyList<T>> GetPagedResponseAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
+        public async Task<PagedResponse<IReadOnlyCollection<T>>> GetPagedResponseAsync(int pageNumber, int pageSize, CancellationToken cancellationToken = default)
         {
-            return await _dbContext
+            int totalRecords = await _dbContext.Set<T>().CountAsync(cancellationToken);
+
+            IReadOnlyList<T> data = await _dbContext
                         .Set<T>()
                         .Skip((pageNumber - 1) * pageSize)
                         .Take(pageSize)
                         .ToListAsync(cancellationToken);
+
+            return new PagedResponse<IReadOnlyCollection<T>>(data, pageNumber, pageSize, totalRecords);
         }
 
         public async Task<T> GetByIdAsync(int id, CancellationToken cancellationToken = default)
@@ -75,11 +80,6 @@ namespace Infrastructure.Persistence.Repositories
                 .SaveChangesAsync(cancellationToken);
 
             return entity;
-        }
-
-        public async Task<int> GetCountAsync(CancellationToken cancellationToken = default)
-        {
-            return await _dbContext.Set<T>().CountAsync(cancellationToken);
         }
     }
 }

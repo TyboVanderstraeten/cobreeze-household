@@ -17,11 +17,11 @@ namespace Infrastructure.Persistence.Repositories
             _shoppingLists = dbContext.Set<ShoppingList>();
         }
 
-        public async Task<IReadOnlyList<ShoppingListItem>> GetAllShoppingListItemsByShoppingListIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyCollection<ShoppingListItem>> GetAllShoppingListItemsByShoppingListIdAsync(int id, CancellationToken cancellationToken = default)
         {
             ShoppingList shoppingList = await _shoppingLists.SingleOrDefaultAsync(sl => sl.Id == id);
 
-            return (IReadOnlyList<ShoppingListItem>)shoppingList?.Items;
+            return (IReadOnlyCollection<ShoppingListItem>)shoppingList?.Items;
         }
     }
 }

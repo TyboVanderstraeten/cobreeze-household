@@ -7,6 +7,6 @@ namespace Application.Interfaces.Repositories
 {
     public interface IUserRepositoryAsync : IGenericRepositoryAsync<User>
     {
-        Task<IReadOnlyList<HouseholdGroup>> GetAllHouseholdsByUserIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<IReadOnlyCollection<HouseholdGroup>> GetAllHouseholdsByUserIdAsync(int id, CancellationToken cancellationToken = default);
     }
 }

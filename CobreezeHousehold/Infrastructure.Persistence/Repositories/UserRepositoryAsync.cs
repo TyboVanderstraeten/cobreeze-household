@@ -17,11 +17,11 @@ namespace Infrastructure.Persistence.Repositories
             _users = dbContext.Set<User>();
         }
 
-        public async Task<IReadOnlyList<HouseholdGroup>> GetAllHouseholdsByUserIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyCollection<HouseholdGroup>> GetAllHouseholdsByUserIdAsync(int id, CancellationToken cancellationToken = default)
         {
             User user = await _users.SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
-            return (IReadOnlyList<HouseholdGroup>)user?.Households;
+            return user?.Households;
         }
     }
 }

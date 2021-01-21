@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Queries
 {
-    public class GetAllShoppingListsByHouseholdIdQuery : IRequest<PagedResponse<IEnumerable<ShoppingList>>>
+    public class GetAllShoppingListsByHouseholdIdQuery : IRequest<Response<IReadOnlyCollection<ShoppingList>>>
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-
         public int Id { get; set; }
 
-        public class GetAllShoppingListsByHouseholdIdQueryHandler : IRequestHandler<GetAllShoppingListsByHouseholdIdQuery, PagedResponse<IEnumerable<ShoppingList>>>
+        public class GetAllShoppingListsByHouseholdIdQueryHandler : IRequestHandler<GetAllShoppingListsByHouseholdIdQuery, Response<IReadOnlyCollection<ShoppingList>>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
 
@@ -25,16 +22,16 @@ namespace Application.Features.HouseholdGroupFeatures.Queries
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
             }
 
-            public async Task<PagedResponse<IEnumerable<ShoppingList>>> Handle(GetAllShoppingListsByHouseholdIdQuery query, CancellationToken cancellationToken)
+            public async Task<Response<IReadOnlyCollection<ShoppingList>>> Handle(GetAllShoppingListsByHouseholdIdQuery query, CancellationToken cancellationToken)
             {
-                IReadOnlyList<ShoppingList> shoppingLists = await _householdGroupRepositoryAsync.GetAllShoppingListsByHouseholdIdAsync(query.Id, cancellationToken);
+                IReadOnlyCollection<ShoppingList> shoppingLists = await _householdGroupRepositoryAsync.GetAllShoppingListsByHouseholdIdAsync(query.Id, cancellationToken);
 
                 if (shoppingLists == null)
                 {
                     throw new ApiException("Shopping Lists Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<ShoppingList>>(shoppingLists, query.PageNumber, query.PageSize,shoppingLists.Count);
+                return new Response<IReadOnlyCollection<ShoppingList>>(shoppingLists);
             }
         }
     }

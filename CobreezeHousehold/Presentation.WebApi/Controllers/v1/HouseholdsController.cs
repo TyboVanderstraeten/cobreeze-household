@@ -165,9 +165,9 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Users")]
-        public async Task<IActionResult> GetAllUsersByHouseholdId(int id, [FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllUsersByHouseholdId(int id)
         {
-            return Ok(await Mediator.Send(new GetAllMembersByHouseholdIdQuery() { Id = id, PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
+            return Ok(await Mediator.Send(new GetAllMembersByHouseholdIdQuery() { Id = id }));
         }
 
         /// <summary>
@@ -176,9 +176,9 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Tasks")]
-        public async Task<IActionResult> GetAllTasksByHouseholdId(int id, [FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllTasksByHouseholdId(int id)
         {
-            return Ok(await Mediator.Send(new GetAllTasksByHouseholdIdQuery() { Id = id, PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
+            return Ok(await Mediator.Send(new GetAllTasksByHouseholdIdQuery() { Id = id }));
         }
 
         /// <summary>
@@ -187,9 +187,9 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Shopping-Lists")]
-        public async Task<IActionResult> GetAllShoppingListsByHouseholdId(int id, [FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllShoppingListsByHouseholdId(int id)
         {
-            return Ok(await Mediator.Send(new GetAllShoppingListsByHouseholdIdQuery() { Id = id, PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
+            return Ok(await Mediator.Send(new GetAllShoppingListsByHouseholdIdQuery() { Id = id }));
         }
     }
 }

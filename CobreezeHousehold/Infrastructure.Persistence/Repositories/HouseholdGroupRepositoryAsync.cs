@@ -17,25 +17,25 @@ namespace Infrastructure.Persistence.Repositories
             _householdGroups = dbContext.Set<HouseholdGroup>();
         }
 
-        public async Task<IReadOnlyList<User>> GetAllMembersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyCollection<User>> GetAllMembersByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
             HouseholdGroup household = await _householdGroups.SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
-            return (IReadOnlyList<User>)household?.Members;
+            return (IReadOnlyCollection<User>)household?.Members;
         }
 
-        public async Task<IReadOnlyList<HouseholdTask>> GetAllTasksByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyCollection<HouseholdTask>> GetAllTasksByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
             HouseholdGroup household = await _householdGroups.SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
-            return (IReadOnlyList<HouseholdTask>)household?.Tasks;
+            return (IReadOnlyCollection<HouseholdTask>)household?.Tasks;
         }
 
-        public async Task<IReadOnlyList<ShoppingList>> GetAllShoppingListsByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
+        public async Task<IReadOnlyCollection<ShoppingList>> GetAllShoppingListsByHouseholdIdAsync(int id, CancellationToken cancellationToken = default)
         {
             HouseholdGroup household = await _householdGroups.SingleOrDefaultAsync(u => u.Id == id, cancellationToken);
 
-            return (IReadOnlyList<ShoppingList>)household?.ShoppingLists;
+            return (IReadOnlyCollection<ShoppingList>)household?.ShoppingLists;
         }
     }
 }

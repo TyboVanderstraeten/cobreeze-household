@@ -7,6 +7,6 @@ namespace Application.Interfaces.Repositories
 {
     public interface IShoppingListRepositoryAsync : IGenericRepositoryAsync<ShoppingList>
     {
-        Task<IReadOnlyList<ShoppingListItem>> GetAllShoppingListItemsByShoppingListIdAsync(int id, CancellationToken cancellationToken = default);
+        Task<IReadOnlyCollection<ShoppingListItem>> GetAllShoppingListItemsByShoppingListIdAsync(int id, CancellationToken cancellationToken = default);
     }
 }

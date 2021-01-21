@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Queries
 {
-    public class GetAllTasksByHouseholdIdQuery : IRequest<PagedResponse<IEnumerable<HouseholdTask>>>
+    public class GetAllTasksByHouseholdIdQuery : IRequest<Response<IReadOnlyCollection<HouseholdTask>>>
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-
         public int Id { get; set; }
 
-        public class GetAllTasksByHouseholdIdQueryHandler : IRequestHandler<GetAllTasksByHouseholdIdQuery, PagedResponse<IEnumerable<HouseholdTask>>>
+        public class GetAllTasksByHouseholdIdQueryHandler : IRequestHandler<GetAllTasksByHouseholdIdQuery, Response<IReadOnlyCollection<HouseholdTask>>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
 
@@ -25,16 +22,16 @@ namespace Application.Features.HouseholdGroupFeatures.Queries
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
             }
 
-            public async Task<PagedResponse<IEnumerable<HouseholdTask>>> Handle(GetAllTasksByHouseholdIdQuery query, CancellationToken cancellationToken)
+            public async Task<Response<IReadOnlyCollection<HouseholdTask>>> Handle(GetAllTasksByHouseholdIdQuery query, CancellationToken cancellationToken)
             {
-                IReadOnlyList<HouseholdTask> tasks = await _householdGroupRepositoryAsync.GetAllTasksByHouseholdIdAsync(query.Id, cancellationToken);
+                IReadOnlyCollection<HouseholdTask> tasks = await _householdGroupRepositoryAsync.GetAllTasksByHouseholdIdAsync(query.Id, cancellationToken);
 
                 if (tasks == null)
                 {
                     throw new ApiException("Tasks Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<HouseholdTask>>(tasks, query.PageNumber, query.PageSize, tasks.Count);
+                return new Response<IReadOnlyCollection<HouseholdTask>>(tasks);
             }
         }
     }

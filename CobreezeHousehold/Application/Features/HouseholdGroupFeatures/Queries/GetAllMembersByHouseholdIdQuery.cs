@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.HouseholdGroupFeatures.Queries
 {
-    public class GetAllMembersByHouseholdIdQuery : IRequest<PagedResponse<IEnumerable<User>>>
+    public class GetAllMembersByHouseholdIdQuery : IRequest<Response<IReadOnlyCollection<User>>>
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-
         public int Id { get; set; }
 
-        public class GetAllMembersByHouseholdIdQueryHandler : IRequestHandler<GetAllMembersByHouseholdIdQuery, PagedResponse<IEnumerable<User>>>
+        public class GetAllMembersByHouseholdIdQueryHandler : IRequestHandler<GetAllMembersByHouseholdIdQuery, Response<IReadOnlyCollection<User>>>
         {
             private readonly IHouseholdGroupRepositoryAsync _householdGroupRepositoryAsync;
 
@@ -25,16 +22,16 @@ namespace Application.Features.HouseholdGroupFeatures.Queries
                 _householdGroupRepositoryAsync = householdGroupRepositoryAsync;
             }
 
-            public async Task<PagedResponse<IEnumerable<User>>> Handle(GetAllMembersByHouseholdIdQuery query, CancellationToken cancellationToken)
+            public async Task<Response<IReadOnlyCollection<User>>> Handle(GetAllMembersByHouseholdIdQuery query, CancellationToken cancellationToken)
             {
-                IReadOnlyList<User> users = await _householdGroupRepositoryAsync.GetAllMembersByHouseholdIdAsync(query.Id, cancellationToken);
+                IReadOnlyCollection<User> users = await _householdGroupRepositoryAsync.GetAllMembersByHouseholdIdAsync(query.Id, cancellationToken);
 
                 if (users == null)
                 {
                     throw new ApiException("Users Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<User>>(users, query.PageNumber, query.PageSize, users.Count);
+                return new Response<IReadOnlyCollection<User>>(users);
             }
         }
     }

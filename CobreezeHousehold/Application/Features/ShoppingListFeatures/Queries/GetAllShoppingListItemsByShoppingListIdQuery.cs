@@ -9,14 +9,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.ShoppingListFeatures.Queries
 {
-    public class GetAllShoppingListItemsByShoppingListIdQuery : IRequest<PagedResponse<IEnumerable<ShoppingListItem>>>
+    public class GetAllShoppingListItemsByShoppingListIdQuery : IRequest<Response<IReadOnlyCollection<ShoppingListItem>>>
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
-
         public int Id { get; set; }
 
-        public class GetAllShoppingListItemsByShoppingListIdQueryHandler : IRequestHandler<GetAllShoppingListItemsByShoppingListIdQuery, PagedResponse<IEnumerable<ShoppingListItem>>>
+        public class GetAllShoppingListItemsByShoppingListIdQueryHandler : IRequestHandler<GetAllShoppingListItemsByShoppingListIdQuery, Response<IReadOnlyCollection<ShoppingListItem>>>
         {
             private readonly IShoppingListRepositoryAsync _shoppingListRepository;
 
@@ -25,16 +22,16 @@ namespace Application.Features.ShoppingListFeatures.Queries
                 _shoppingListRepository = shoppingListRepository;
             }
 
-            public async Task<PagedResponse<IEnumerable<ShoppingListItem>>> Handle(GetAllShoppingListItemsByShoppingListIdQuery query, CancellationToken cancellationToken)
+            public async Task<Response<IReadOnlyCollection<ShoppingListItem>>> Handle(GetAllShoppingListItemsByShoppingListIdQuery query, CancellationToken cancellationToken)
             {
-                IReadOnlyList<ShoppingListItem> items = await _shoppingListRepository.GetAllShoppingListItemsByShoppingListIdAsync(query.Id, cancellationToken);
+                IReadOnlyCollection<ShoppingListItem> items = await _shoppingListRepository.GetAllShoppingListItemsByShoppingListIdAsync(query.Id, cancellationToken);
 
                 if (items == null)
                 {
                     throw new ApiException("Shopping List Items Not Found.");
                 }
 
-                return new PagedResponse<IEnumerable<ShoppingListItem>>(items, query.PageNumber, query.PageSize, items.Count);
+                return new Response<IReadOnlyCollection<ShoppingListItem>>(items);
             }
         }
     }

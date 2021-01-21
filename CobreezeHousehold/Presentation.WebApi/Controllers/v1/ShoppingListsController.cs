@@ -15,9 +15,9 @@ namespace Presentation.WebApi.Controllers.v1
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}/Items")]
-        public async Task<IActionResult> GetAllHouseholdsByUserId(int id, [FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAllHouseholdsByUserId(int id)
         {
-            return Ok(await Mediator.Send(new GetAllShoppingListItemsByShoppingListIdQuery() { Id = id, PageNumber = paginationFilter.PageNumber, PageSize = paginationFilter.PageSize }));
+            return Ok(await Mediator.Send(new GetAllShoppingListItemsByShoppingListIdQuery() { Id = id }));
         }
 
         /// <summary>
