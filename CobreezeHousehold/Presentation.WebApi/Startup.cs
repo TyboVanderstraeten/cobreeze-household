@@ -10,7 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Presentation.WebApi.Services;
+using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace Presentation.WebApi
 {
@@ -36,6 +39,7 @@ namespace Presentation.WebApi
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cobreeze", Version = "v1" });
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"), true);
             });
 
             services.AddApiVersioning(config =>
