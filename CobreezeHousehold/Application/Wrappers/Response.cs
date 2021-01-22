@@ -7,10 +7,10 @@
         public string[] Errors { get; set; }
         public string Message { get; set; }
 
-        public Response(T data)
+        public Response(T data, string message = null)
         {
             Succeeded = true;
-            Message = string.Empty;
+            Message = message;
             Errors = null;
             Data = data;
         }

@@ -9,7 +9,6 @@ namespace Application.DTOs.Account
         public int DomainUserEntityId { get; set; }
         public string Email { get; set; }
         public List<string> Roles { get; set; }
-        public bool IsVerified { get; set; }
         public string JWToken { get; set; }
         [JsonIgnore]
         public string RefreshToken { get; set; }

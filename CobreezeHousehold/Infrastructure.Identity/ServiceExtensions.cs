@@ -1,7 +1,9 @@
-﻿using Application.Wrappers;
+﻿using Application.Interfaces;
+using Application.Wrappers;
 using Domain.Settings;
 using Infrastructure.Identity.Contexts;
 using Infrastructure.Identity.Models;
+using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +28,8 @@ namespace Infrastructure.Identity
             });
 
             services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores<IdentityContext>();
+
+            services.AddScoped<IAccountService, AccountService>();
 
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
 
