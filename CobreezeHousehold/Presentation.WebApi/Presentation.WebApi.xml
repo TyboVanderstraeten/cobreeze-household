@@ -4,6 +4,26 @@
         <name>Presentation.WebApi</name>
     </assembly>
     <members>
+        <member name="M:Presentation.WebApi.Controllers.AccountsController.AuthenticateAsync(Application.DTOs.Account.AuthenticationRequest)">
+            <summary>
+            Authenticates a User.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.AccountsController.RegisterAsync(Application.DTOs.Account.RegisterRequest)">
+            <summary>
+            Registers a New User.
+            </summary>
+            <param name="request"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Presentation.WebApi.Controllers.InfoController.Info">
+            <summary>
+            Gets Api Meta Info.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Presentation.WebApi.Controllers.v1.HouseholdsController.GetById(System.Int32)">
             <summary>
             Gets Household Entity by Id.

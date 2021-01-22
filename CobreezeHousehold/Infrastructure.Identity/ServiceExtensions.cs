@@ -6,6 +6,7 @@ using Infrastructure.Identity.Models;
 using Infrastructure.Identity.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,9 +28,9 @@ namespace Infrastructure.Identity
                     builder => builder.MigrationsAssembly(typeof(IdentityContext).Assembly.FullName));
             });
 
-            services.AddIdentityCore<ApplicationUser>().AddEntityFrameworkStores<IdentityContext>();
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<IdentityContext>().AddDefaultTokenProviders();
 
-            services.AddScoped<IAccountService, AccountService>();
+            services.AddTransient<IAccountService, AccountService>();
 
             services.Configure<JWTSettings>(configuration.GetSection("JWTSettings"));
 
