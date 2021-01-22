@@ -1,5 +1,6 @@
 using Application;
 using Application.Interfaces;
+using Infrastructure.Identity;
 using Infrastructure.Persistence;
 using Infrastructure.Shared;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +57,8 @@ namespace Presentation.WebApi
             services.AddApplicationLayer();
 
             services.AddPersistenceLayer(Configuration);
+
+            services.AddIdentityLayer(Configuration);
 
             services.AddSharedLayer();
 
