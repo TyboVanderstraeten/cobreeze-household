@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Presentation.WebApi.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -37,10 +38,37 @@ namespace Presentation.WebApi
                 options.LowercaseQueryStrings = true;
             });
 
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(config =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Cobreeze", Version = "v1" });
-                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"), true);
+                config.SwaggerDoc("v1", new OpenApiInfo { Title = "Cobreeze", Version = "v1" });
+                config.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"), true);
+
+                config.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Description = "Input your Bearer token in this format - Bearer {your token here} to access this API",
+                });
+
+                config.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer",
+                            },
+                            Scheme = "Bearer",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        }, new List<string>()
+                    },
+                });
             });
 
             services.AddApiVersioning(config =>
@@ -56,9 +84,9 @@ namespace Presentation.WebApi
 
             services.AddApplicationLayer();
 
-            services.AddPersistenceLayer(Configuration);
-
             services.AddIdentityLayer(Configuration);
+
+            services.AddPersistenceLayer(Configuration);
 
             services.AddSharedLayer();
 
